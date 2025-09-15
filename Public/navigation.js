@@ -529,7 +529,7 @@ function navigateTo(pageId) {
     return navigationManager.navigateTo(pageId);
 }
 
-// Modal management functions
+// FIXED: Modal management functions
 function showModal(title, content) {
     const modal = document.getElementById('modal-overlay');
     const modalTitle = document.getElementById('modal-title');
@@ -543,10 +543,30 @@ function showModal(title, content) {
         // Add entrance animation
         const modalContent = modal.querySelector('.modal-content');
         if (modalContent) {
+            modalContent.classList.remove('animate-fadeOut');
+            modalContent.classList.add('animate-scaleIn');
+        }
+        
+        // Focus management for accessibility
+        setTimeout(() => {
+            const firstInput = modal.querySelector('input, button, textarea, select');
+            if (firstInput) {
+                firstInput.focus();
+            }
+        }, 100);
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('modal-overlay');
+    if (modal) {
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.classList.remove('animate-scaleIn');
             modalContent.classList.add('animate-fadeOut');
             setTimeout(() => {
                 modal.style.display = 'none';
-                modalContent.classList.remove('animate-scaleIn', 'animate-fadeOut');
+                modalContent.classList.remove('animate-fadeOut');
             }, 300);
         } else {
             modal.style.display = 'none';
@@ -599,19 +619,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Export navigation manager for use in other modules
 window.navigationManager = navigationManager;
-
-function closeModal() {
-    const modal = document.getElementById('modal-overlay');
-    if (modal) {
-        const modalContent = modal.querySelector('.modal-content');
-        if (modalContent) {
-            modalContent.classList.add('animate-fadeOut');
-            setTimeout(() => {
-                modal.style.display = 'none';
-                modalContent.classList.remove('animate-scaleIn', 'animate-fadeOut');
-            }, 300);
-        } else {
-            modal.style.display = 'none';
-        }
-    }
-}
