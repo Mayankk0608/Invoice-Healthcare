@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc-In-The-Box - AI Healthcare Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🏥</span>
+                Doc-In-The-Box
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showLogin()">Login</button>
+                <button class="btn btn-primary" onclick="showSignup()">Sign Up</button>
+                <button class="voice-toggle-btn" onclick="toggleGlobalVoice()" title="Toggle Voice Assistant">
+                    <span class="voice-icon">🎤</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Application Container -->
+    <div id="app-container">
+        
+        <!-- Landing Page -->
+        <div id="landing-page" class="page active">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title animated-title">Bridging Healthcare with AI</h1>
+                    <p class="hero-subtitle">Providing immediate, accessible, and evidence-based medical triage and preliminary support to individuals in underserved communities, in their native language.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary btn-large" onclick="navigateTo('patient-dashboard')">
+                            <span class="btn-icon">🔍</span>
+                            Start Symptom Check
+                        </button>
+                        <button class="btn btn-secondary btn-large" onclick="navigateTo('doctor-dashboard')">
+                            <span class="btn-icon">👨‍⚕️</span>
+                            Doctor Portal
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-cards">
+                        <div class="floating-card">🩺 AI Diagnosis</div>
+                        <div class="floating-card">🎤 Voice Recognition</div>
+                        <div class="floating-card">🌐 Multi-Language</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Preview Cards -->
+            <section class="dashboard-preview">
+                <div class="section-header">
+                    <h2>Three Powerful Dashboards</h2>
+                    <p>Complete healthcare ecosystem for patients, doctors, and administrators</p>
+                </div>
+                
+                <div class="dashboard-cards">
+                    <div class="dashboard-card" onclick="navigateTo('patient-dashboard')">
+                        <div class="card-icon patient-icon">📱</div>
+                        <h3 class="card-title">Patient App</h3>
+                        <p class="card-description">AI-powered symptom checker with voice support, appointment booking, and health wallet management.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Voice Input</span>
+                            <span class="feature-tag">AI Triage</span>
+                            <span class="feature-tag">Multi-Language</span>
+                        </div>
+                        <button class="btn btn-outline">Explore Patient App</button>
+                    </div>
+
+                    <div class="dashboard-card" onclick="navigateTo('doctor-dashboard')">
+                        <div class="card-icon doctor-icon">👨‍⚕️</div>
+                        <h3 class="card-title">Doctor Portal</h3>
+                        <p class="card-description">Complete practice management with AI assistant, patient dossiers, and video consultations.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Video Calls</span>
+                            <span class="feature-tag">AI Assistant</span>
+                            <span class="feature-tag">Practice Mgmt</span>
+                        </div>
+                        <button class="btn btn-outline">Access Portal</button>
+                    </div>
+
+                    <div class="dashboard-card" onclick="navigateTo('admin-dashboard')">
+                        <div class="card-icon admin-icon">⚙️</div>
+                        <h3 class="card-title">Admin Panel</h3>
+                        <p class="card-description">System oversight with public health analytics and early disease outbreak detection.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Analytics</span>
+                            <span class="feature-tag">Monitoring</span>
+                            <span class="feature-tag">Alerts</span>
+                        </div>
+                        <button class="btn btn-outline">View Dashboard</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Patient Dashboard -->
+        <div id="patient-dashboard" class="page">
+            <div class="dashboard-header">
+                <h1>Patient Dashboard</h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="navigateTo('landing-page')">← Back to Home</button>
+                    <div class="language-selector">
+                        <select id="language-select" onchange="changeLanguage(this.value)">
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="te">తెలుగు</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Symptom Checker Section -->
+                <div class="main-feature-card">
+                    <div class="feature-header">
+                        <h2>🔍 AI Symptom Checker</h2>
+                        <p>Describe your symptoms using voice or text in your preferred language</p>
+                    </div>
+                    
+                    <div class="symptom-checker">
+                        <div class="voice-input-section">
+                            <button class="voice-record-btn" id="voice-record-btn" onclick="toggleVoiceRecording()">
+                                <div class="voice-animation">
+                                    <div class="voice-wave"></div>
+                                    <div class="voice-wave"></div>
+                                    <div class="voice-wave"></div>
+                                </div>
+                                <span class="voice-text">Click to Speak</span>
+                            </button>
+                            <div class="voice-feedback" id="voice-feedback">
+                                <p>Voice recognition ready. Click the button and start speaking...</p>
+                            </div>
+                        </div>
+
+                        <div class="text-input-section">
+                            <textarea 
+                                id="symptom-text" 
+                                placeholder="Or type your symptoms here... (e.g., I have fever, headache, and body pain)"
+                                rows="4"
+                            ></textarea>
+                            <button class="btn btn-primary" onclick="analyzeSymptoms()">
+                                <span class="btn-icon">🧠</span>
+                                Analyze Symptoms
+                            </button>
+                        </div>
+
+                        <div class="analysis-results" id="analysis-results" style="display: none;">
+                            <div class="results-header">
+                                <h3>AI Analysis Results</h3>
+                                <div class="urgency-indicator">
+                                    <span class="urgency-label">Urgency Level:</span>
+                                    <span class="urgency-badge" id="urgency-badge">Moderate</span>
+                                </div>
+                            </div>
+                            <div class="diagnosis-card">
+                                <h4>Possible Conditions:</h4>
+                                <div class="condition-list" id="condition-list">
+                                    <!-- Will be populated by AI analysis -->
+                                </div>
+                            </div>
+                            <div class="recommendations-card">
+                                <h4>Recommendations:</h4>
+                                <div class="recommendation-list" id="recommendation-list">
+                                    <!-- Will be populated by AI analysis -->
+                                </div>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="bookAppointment()">Book Doctor Appointment</button>
+                                <button class="btn btn-secondary" onclick="saveToHealthWallet()">Save to Health Wallet</button>
+                                <button class="voice-read-btn" onclick="readResultsAloud()">🔊 Read Results</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions-grid">
+                    <div class="action-card" onclick="showAppointmentBooking()">
+                        <div class="action-icon">📅</div>
+                        <h3>Book Appointment</h3>
+                        <p>Schedule consultation with verified doctors</p>
+                    </div>
+                    
+                    <div class="action-card" onclick="showHealthWallet()">
+                        <div class="action-icon">📋</div>
+                        <h3>Health Wallet</h3>
+                        <p>View medical history and prescriptions</p>
+                    </div>
+                    
+                    <div class="action-card" onclick="showEmergencyServices()">
+                        <div class="action-icon">🚨</div>
+                        <h3>Emergency</h3>
+                        <p>Find nearby hospitals and emergency contacts</p>
+                    </div>
+
+                    <div class="action-card" onclick="uploadInvoice()">
+                        <div class="action-icon">📄</div>
+                        <h3>Upload Invoice</h3>
+                        <p>OCR scan and voice confirmation of medical bills</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doctor Dashboard -->
+        <div id="doctor-dashboard" class="page">
+            <div class="dashboard-header">
+                <h1>Doctor Portal</h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="navigateTo('landing-page')">← Back to Home</button>
+                    <div class="doctor-profile">
+                        <img src="https://via.placeholder.com/40" alt="Doctor" class="profile-avatar">
+                        <span>Dr. Sarah Johnson</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Today's Schedule -->
+                <div class="schedule-section">
+                    <h2>📅 Today's Appointments</h2>
+                    <div class="appointment-timeline">
+                        <div class="appointment-slot active">
+                            <div class="time-label">09:00 AM</div>
+                            <div class="appointment-card">
+                                <div class="patient-info">
+                                    <h4>Raj Sharma</h4>
+                                    <p>Fever, Headache | Age: 34</p>
+                                </div>
+                                <div class="appointment-actions">
+                                    <button class="btn btn-small btn-primary" onclick="startConsultation('raj-sharma')">Start Call</button>
+                                    <button class="btn btn-small btn-outline" onclick="viewPatientDossier('raj-sharma')">View Dossier</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="appointment-slot">
+                            <div class="time-label">10:30 AM</div>
+                            <div class="appointment-card">
+                                <div class="patient-info">
+                                    <h4>Priya Patel</h4>
+                                    <p>Diabetes Follow-up | Age: 45</p>
+                                </div>
+                                <div class="appointment-actions">
+                                    <button class="btn btn-small btn-outline">Upcoming</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="appointment-slot">
+                            <div class="time-label">02:00 PM</div>
+                            <div class="appointment-card">
+                                <div class="patient-info">
+                                    <h4>Ahmed Ali</h4>
+                                    <p>Chest Pain | Age: 52</p>
+                                </div>
+                                <div class="appointment-actions">
+                                    <button class="btn btn-small btn-outline">Upcoming</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Assistant Panel -->
+                <div class="ai-assistant-panel">
+                    <h2>🧠 AI Medical Assistant</h2>
+                    <div class="assistant-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">💡</div>
+                            <h4>Real-time Suggestions</h4>
+                            <p>Get AI-powered diagnostic suggestions during consultations</p>
+                            <button class="btn btn-small btn-outline">Enable Assistant</button>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">💊</div>
+                            <h4>Drug Interaction Checker</h4>
+                            <p>Automatic checking for allergies and drug conflicts</p>
+                            <button class="btn btn-small btn-outline">View Database</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practice Analytics -->
+                <div class="analytics-section">
+                    <h2>📊 Practice Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">127</div>
+                            <div class="stat-label">Patients This Month</div>
+                            <div class="stat-change positive">+12%</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">₹45,680</div>
+                            <div class="stat-label">Monthly Earnings</div>
+                            <div class="stat-change positive">+8%</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">4.9</div>
+                            <div class="stat-label">Average Rating</div>
+                            <div class="stat-change stable">→</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">23 min</div>
+                            <div class="stat-label">Avg. Consultation Time</div>
+                            <div class="stat-change negative">-2 min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="page">
+            <div class="dashboard-header">
+                <h1>System Administration</h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="navigateTo('landing-page')">← Back to Home</button>
+                    <div class="admin-controls">
+                        <button class="btn btn-outline btn-small">System Health</button>
+                        <button class="btn btn-danger btn-small">Emergency Alert</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Real-time Health Monitoring -->
+                <div class="monitoring-section">
+                    <h2>🗺️ Real-time Health Monitoring</h2>
+                    <div class="monitoring-grid">
+                        <div class="map-container">
+                            <div class="map-placeholder">
+                                <h3>Symptom Hotspot Map</h3>
+                                <div class="hotspot-indicators">
+                                    <div class="hotspot high-alert">
+                                        <span class="location">Delhi NCR</span>
+                                        <span class="symptom">Fever Cases: +23%</span>
+                                    </div>
+                                    <div class="hotspot medium-alert">
+                                        <span class="location">Mumbai</span>
+                                        <span class="symptom">Respiratory Issues: +12%</span>
+                                    </div>
+                                    <div class="hotspot low-alert">
+                                        <span class="location">Bangalore</span>
+                                        <span class="symptom">Headache Reports: +8%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert-panel">
+                            <h3>🚨 Early Warning System</h3>
+                            <div class="alert-list">
+                                <div class="alert-item critical">
+                                    <div class="alert-icon">🔴</div>
+                                    <div class="alert-content">
+                                        <h4>Potential Outbreak Alert</h4>
+                                        <p>Unusual spike in fever cases in East Delhi (43 cases in 24h)</p>
+                                        <span class="alert-time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert-item warning">
+                                    <div class="alert-icon">🟡</div>
+                                    <div class="alert-content">
+                                        <h4>Seasonal Pattern Detected</h4>
+                                        <p>Increased respiratory complaints correlating with air quality index</p>
+                                        <span class="alert-time">6 hours ago</span>
+                                    </div>
+                                </div>
+
+                                <div class="alert-item info">
+                                    <div class="alert-icon">🔵</div>
+                                    <div class="alert-content">
+                                        <h4>System Update</h4>
+                                        <p>AI model accuracy improved by 3.2% after latest training</p>
+                                        <span class="alert-time">1 day ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Management -->
+                <div class="user-management-section">
+                    <h2>👥 User Management</h2>
+                    <div class="management-tabs">
+                        <button class="tab-btn active" onclick="showUserTab('doctors')">Doctors</button>
+                        <button class="tab-btn" onclick="showUserTab('patients')">Patients</button>
+                        <button class="tab-btn" onclick="showUserTab('pending')">Pending Approvals</button>
+                    </div>
+                    
+                    <div class="user-table-container">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Specialization</th>
+                                    <th>Status</th>
+                                    <th>Patients</th>
+                                    <th>Rating</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Dr. Sarah Johnson</td>
+                                    <td>General Medicine</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>127</td>
+                                    <td>4.9 ⭐</td>
+                                    <td>
+                                        <button class="btn btn-small btn-outline">View</button>
+                                        <button class="btn btn-small btn-secondary">Message</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Dr. Raj Kumar</td>
+                                    <td>Cardiology</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>89</td>
+                                    <td>4.7 ⭐</td>
+                                    <td>
+                                        <button class="btn btn-small btn-outline">View</button>
+                                        <button class="btn btn-small btn-secondary">Message</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- System Analytics -->
+                <div class="system-analytics">
+                    <h2>📈 Platform Analytics</h2>
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3>Daily Active Users</h3>
+                            <div class="metric-value">12,847</div>
+                            <div class="metric-change positive">+5.2%</div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>Consultations Today</h3>
+                            <div class="metric-value">1,234</div>
+                            <div class="metric-change positive">+12.1%</div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>AI Accuracy Rate</h3>
+                            <div class="metric-value">94.7%</div>
+                            <div class="metric-change positive">+0.3%</div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>System Uptime</h3>
+                            <div class="metric-value">99.9%</div>
+                            <div class="metric-change stable">→</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Assistant Global Indicator -->
+    <div id="voice-assistant-indicator" class="voice-indicator" style="display: none;">
+        <div class="voice-indicator-content">
+            <div class="voice-animation-small">
+                <div class="voice-wave-small"></div>
+                <div class="voice-wave-small"></div>
+                <div class="voice-wave-small"></div>
+            </div>
+            <span>Voice Assistant Active</span>
+        </div>
+    </div>
+
+    <!-- Modal Overlays -->
+    <div id="modal-overlay" class="modal-overlay" style="display: none;" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close" onclick="closeModal()">×,l </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="voice.js"></script>
+    <script src="navigation.js"></script>
+    <script src="patient.js"></script>
+    <script src="doctor.js"></script>
+    <script src="admin.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
