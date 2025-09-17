@@ -576,6 +576,29 @@ function processVoiceCommand(command) {
             return;
         }
     }
+    function navigateTo(page) {
+        const routes = {
+            'landing-page': '/',
+            'patient-dashboard': '/patient',
+            'doctor-dashboard': '/doctor',
+            'admin-dashboard': '/admin'
+        };
+    
+        const path = routes[page] || '/';
+        
+        // Handle single page application navigation
+        if (window.history && window.history.pushState) {
+            window.history.pushState({}, page, path);
+            // Trigger page change event
+            const navEvent = new CustomEvent('pageChanged', { detail: { page } });
+            document.dispatchEvent(navEvent);
+            // Announce page change for accessibility
+            announcePageChange(page);
+        } else {
+            // Fallback for older browsers
+            window.location.href = path;
+        }
+    }
     
     // Symptom checker commands
     if (command.includes('check symptom') || command.includes('analyze symptom')) {
@@ -767,7 +790,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Save voice preferences
 function saveVoicePreferences() {
     const prefs = {
         globalVoiceEnabled: voiceManager.isGlobalVoiceActive,
@@ -776,12 +798,10 @@ function saveVoicePreferences() {
     localStorage.setItem('voicePreferences', JSON.stringify(prefs));
 }
 
-// Clean up voice features before page unload
 window.addEventListener('beforeunload', () => {
     voiceManager.stopListening();
     voiceManager.stopSpeaking();
     saveVoicePreferences();
 });
 
-// Export voice manager for use in other modules
 window.voiceManager = voiceManager;

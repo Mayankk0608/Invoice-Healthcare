@@ -223,7 +223,7 @@
                     <button class="btn btn-secondary" onclick="navigateTo('landing-page')">← Back to Home</button>
                     <div class="doctor-profile">
                         <img src="https://via.placeholder.com/40" alt="Doctor" class="profile-avatar">
-                        <span>Dr. Sarah Johnson</span>
+                        <span id="doctor-name">Dr. Sarah Johnson</span>
                     </div>
                 </div>
             </div>
@@ -233,45 +233,7 @@
                 <div class="schedule-section">
                     <h2>📅 Today's Appointments</h2>
                     <div class="appointment-timeline">
-                        <div class="appointment-slot active">
-                            <div class="time-label">09:00 AM</div>
-                            <div class="appointment-card">
-                                <div class="patient-info">
-                                    <h4>Raj Sharma</h4>
-                                    <p>Fever, Headache | Age: 34</p>
-                                </div>
-                                <div class="appointment-actions">
-                                    <button class="btn btn-small btn-primary" onclick="startConsultation('raj-sharma')">Start Call</button>
-                                    <button class="btn btn-small btn-outline" onclick="viewPatientDossier('raj-sharma')">View Dossier</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="appointment-slot">
-                            <div class="time-label">10:30 AM</div>
-                            <div class="appointment-card">
-                                <div class="patient-info">
-                                    <h4>Priya Patel</h4>
-                                    <p>Diabetes Follow-up | Age: 45</p>
-                                </div>
-                                <div class="appointment-actions">
-                                    <button class="btn btn-small btn-outline">Upcoming</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="appointment-slot">
-                            <div class="time-label">02:00 PM</div>
-                            <div class="appointment-card">
-                                <div class="patient-info">
-                                    <h4>Ahmed Ali</h4>
-                                    <p>Chest Pain | Age: 52</p>
-                                </div>
-                                <div class="appointment-actions">
-                                    <button class="btn btn-small btn-outline">Upcoming</button>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Appointments will be loaded dynamically by doctor.js -->
                     </div>
                 </div>
 
@@ -283,14 +245,14 @@
                             <div class="feature-icon">💡</div>
                             <h4>Real-time Suggestions</h4>
                             <p>Get AI-powered diagnostic suggestions during consultations</p>
-                            <button class="btn btn-small btn-outline">Enable Assistant</button>
+                            <button class="btn btn-small btn-outline" onclick="doctorManager.toggleAIAssistant()">Enable Assistant</button>
                         </div>
                         
                         <div class="feature-card">
                             <div class="feature-icon">💊</div>
                             <h4>Drug Interaction Checker</h4>
                             <p>Automatic checking for allergies and drug conflicts</p>
-                            <button class="btn btn-small btn-outline">View Database</button>
+                            <button class="btn btn-small btn-outline" onclick="doctorManager.showDrugDatabase()">View Database</button>
                         </div>
                     </div>
                 </div>
@@ -300,22 +262,22 @@
                     <h2>📊 Practice Overview</h2>
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-number">127</div>
+                            <div class="stat-number" id="stat-patients">127</div>
                             <div class="stat-label">Patients This Month</div>
                             <div class="stat-change positive">+12%</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">₹45,680</div>
+                            <div class="stat-number" id="stat-earnings">₹45,680</div>
                             <div class="stat-label">Monthly Earnings</div>
                             <div class="stat-change positive">+8%</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">4.9</div>
+                            <div class="stat-number" id="stat-rating">4.9</div>
                             <div class="stat-label">Average Rating</div>
                             <div class="stat-change stable">→</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">23 min</div>
+                            <div class="stat-number" id="stat-time">23 min</div>
                             <div class="stat-label">Avg. Consultation Time</div>
                             <div class="stat-change negative">-2 min</div>
                         </div>

@@ -1223,14 +1223,11 @@ ASSESSMENT AND PLAN:
     
     addToDossier(patientId) {
         console.log('Adding entry to patient dossier:', patientId);
-        // Implement adding new dossier entry
     }
 }
 
-// Initialize doctor manager
 const doctorManager = new DoctorManager();
 
-// Global functions for doctor dashboard
 function startConsultation(appointmentId) {
     doctorManager.startConsultation(appointmentId);
 }
@@ -1243,5 +1240,4 @@ function showAppointmentDetails(appointmentId) {
     doctorManager.showAppointmentDetails(appointmentId);
 }
 
-// Export doctor manager for use in other modules
 window.doctorManager = doctorManager;

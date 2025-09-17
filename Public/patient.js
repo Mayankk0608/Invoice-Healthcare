@@ -18,16 +18,12 @@ class PatientManager {
     }
     
     initializePatientFeatures() {
-        // Initialize symptom checker
         this.setupSymptomChecker();
         
-        // Load health wallet
-        this.displayHealthWallet();
+        this.loadHealthWallet();
         
-        // Setup appointment booking
         this.setupAppointmentBooking();
         
-        // Initialize emergency services
         this.setupEmergencyServices();
     }
     
