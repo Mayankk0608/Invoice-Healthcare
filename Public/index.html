@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -29,10 +28,8 @@
         </div>
     </nav>
 
-    <!-- Main Application Container -->
     <div id="app-container">
         
-        <!-- Landing Page -->
         <div id="landing-page" class="page active">
             <section class="hero-section">
                 <div class="hero-content">
@@ -58,7 +55,6 @@
                 </div>
             </section>
 
-            <!-- Dashboard Preview Cards -->
             <section class="dashboard-preview">
                 <div class="section-header">
                     <h2>Three Powerful Dashboards</h2>
@@ -105,7 +101,6 @@
             </section>
         </div>
 
-        <!-- Patient Dashboard -->
         <div id="patient-dashboard" class="page">
             <div class="dashboard-header">
                 <h1>Patient Dashboard</h1>
@@ -123,7 +118,6 @@
             </div>
 
             <div class="dashboard-content">
-                <!-- Symptom Checker Section -->
                 <div class="main-feature-card">
                     <div class="feature-header">
                         <h2>🔍 AI Symptom Checker</h2>
@@ -168,13 +162,11 @@
                             <div class="diagnosis-card">
                                 <h4>Possible Conditions:</h4>
                                 <div class="condition-list" id="condition-list">
-                                    <!-- Will be populated by AI analysis -->
                                 </div>
                             </div>
                             <div class="recommendations-card">
                                 <h4>Recommendations:</h4>
                                 <div class="recommendation-list" id="recommendation-list">
-                                    <!-- Will be populated by AI analysis -->
                                 </div>
                             </div>
                             <div class="action-buttons">
@@ -186,7 +178,6 @@
                     </div>
                 </div>
 
-                <!-- Quick Actions -->
                 <div class="quick-actions-grid">
                     <div class="action-card" onclick="showAppointmentBooking()">
                         <div class="action-icon">📅</div>
@@ -215,7 +206,6 @@
             </div>
         </div>
 
-        <!-- Doctor Dashboard -->
         <div id="doctor-dashboard" class="page">
             <div class="dashboard-header">
                 <h1>Doctor Portal</h1>
@@ -229,15 +219,12 @@
             </div>
 
             <div class="dashboard-content">
-                <!-- Today's Schedule -->
                 <div class="schedule-section">
                     <h2>📅 Today's Appointments</h2>
                     <div class="appointment-timeline">
-                        <!-- Appointments will be loaded dynamically by doctor.js -->
                     </div>
                 </div>
 
-                <!-- AI Assistant Panel -->
                 <div class="ai-assistant-panel">
                     <h2>🧠 AI Medical Assistant</h2>
                     <div class="assistant-features">
@@ -257,7 +244,6 @@
                     </div>
                 </div>
 
-                <!-- Practice Analytics -->
                 <div class="analytics-section">
                     <h2>📊 Practice Overview</h2>
                     <div class="stats-grid">
@@ -286,7 +272,6 @@
             </div>
         </div>
 
-        <!-- Admin Dashboard -->
         <div id="admin-dashboard" class="page">
             <div class="dashboard-header">
                 <h1>System Administration</h1>
@@ -300,7 +285,6 @@
             </div>
 
             <div class="dashboard-content">
-                <!-- Real-time Health Monitoring -->
                 <div class="monitoring-section">
                     <h2>🗺️ Real-time Health Monitoring</h2>
                     <div class="monitoring-grid">
@@ -358,7 +342,6 @@
                     </div>
                 </div>
 
-                <!-- User Management -->
                 <div class="user-management-section">
                     <h2>👥 User Management</h2>
                     <div class="management-tabs">
@@ -407,7 +390,6 @@
                     </div>
                 </div>
 
-                <!-- System Analytics -->
                 <div class="system-analytics">
                     <h2>📈 Platform Analytics</h2>
                     <div class="analytics-grid">
@@ -440,7 +422,6 @@
         </div>
     </div>
 
-    <!-- Voice Assistant Global Indicator -->
     <div id="voice-assistant-indicator" class="voice-indicator" style="display: none;">
         <div class="voice-indicator-content">
             <div class="voice-animation-small">
@@ -452,7 +433,6 @@
         </div>
     </div>
 
-    <!-- Modal Overlays -->
     <div id="modal-overlay" class="modal-overlay" style="display: none;" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -460,12 +440,10 @@
             <button class="modal-close" onclick="closeModal()">×</button>
         </div>
         <div class="modal-body" id="modal-body">
-            <!-- Modal content will be inserted here -->
         </div>
     </div>
 </div>
 
-    <!-- Scripts -->
     <script src="voice.js"></script>
     <script src="navigation.js"></script>
     <script src="patient.js"></script>

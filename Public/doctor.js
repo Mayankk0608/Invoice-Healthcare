@@ -1,4 +1,3 @@
-// doctor.js - Doctor Dashboard Functionality
 
 class DoctorManager {
     constructor() {
@@ -23,21 +22,16 @@ class DoctorManager {
     }
     
     initializeDoctorFeatures() {
-        // Initialize appointment management
         this.setupAppointmentManagement();
         
-        // Setup AI assistant
         this.setupAIAssistant();
         
-        // Initialize practice analytics
         this.loadPracticeAnalytics();
         
-        // Setup consultation tools
         this.setupConsultationTools();
     }
     
     loadDoctorData() {
-        // Load appointments from storage or API
         const savedAppointments = localStorage.getItem('doctor_appointments_' + this.currentDoctor.id);
         if (savedAppointments) {
             try {
@@ -50,7 +44,6 @@ class DoctorManager {
             this.appointments = this.generateMockAppointments();
         }
         
-        // Update UI
         this.refreshAppointmentTimeline();
     }
     
@@ -58,7 +51,6 @@ class DoctorManager {
         const today = new Date();
         const appointments = [];
         
-        // Generate appointments for today and next few days
         for (let i = 0; i < 5; i++) {
             const appointmentDate = new Date(today);
             appointmentDate.setDate(today.getDate() + Math.floor(i / 3));
@@ -126,10 +118,8 @@ class DoctorManager {
     }
     
     setupAppointmentManagement() {
-        // Set up appointment timeline interactions
         this.refreshAppointmentTimeline();
         
-        // Auto-refresh appointments every 5 minutes
         setInterval(() => {
             this.refreshAppointmentTimeline();
         }, 5 * 60 * 1000);
@@ -166,7 +156,6 @@ class DoctorManager {
             </div>
         `).join('');
         
-        // Add hover effects and animations
         this.enhanceAppointmentCards();
     }
     
@@ -200,11 +189,9 @@ class DoctorManager {
         this.consultationInProgress = true;
         this.currentConsultation = appointment;
         
-        // Mark appointment as in-progress
         appointment.status = 'in-progress';
         appointment.startTime = new Date().toISOString();
         
-        // Show consultation interface
         const content = `
             <div class="consultation-interface">
                 <div class="consultation-header">
@@ -293,10 +280,8 @@ class DoctorManager {
         
         showModal('Video Consultation', content);
         
-        // Start consultation timer
         this.startConsultationTimer();
         
-        // Voice announcement
         if (window.voiceManager) {
             window.voiceManager.speak(`Starting consultation with ${appointment.patientName}`);
         }
@@ -336,7 +321,6 @@ class DoctorManager {
     }
     
     toggleMute() {
-        // Implement mute functionality
         const muteBtn = document.querySelector('.mute-btn');
         if (muteBtn) {
             muteBtn.classList.toggle('active');
@@ -345,7 +329,6 @@ class DoctorManager {
     }
     
     toggleVideo() {
-        // Implement video toggle
         const videoBtn = document.querySelector('.video-btn');
         if (videoBtn) {
             videoBtn.classList.toggle('active');
@@ -354,7 +337,6 @@ class DoctorManager {
     }
     
     shareScreen() {
-        // Implement screen sharing
         if (window.voiceManager) {
             window.voiceManager.speak('Screen sharing initiated');
         }
@@ -411,7 +393,6 @@ class DoctorManager {
             </div>
         `;
         
-        // Create new modal for prescription (nested modal)
         const prescriptionModal = document.createElement('div');
         prescriptionModal.className = 'modal-overlay prescription-modal';
         prescriptionModal.innerHTML = `
@@ -450,7 +431,6 @@ class DoctorManager {
     }
     
     savePrescription() {
-        // Collect prescription data
         const medications = [];
         document.querySelectorAll('.medication-item').forEach(item => {
             const inputs = item.querySelectorAll('input');
@@ -477,10 +457,8 @@ class DoctorManager {
             consultationId: this.currentConsultation.id
         };
         
-        // Save prescription
         this.savePrescriptionToStorage(prescription);
         
-        // Close prescription modal
         document.querySelector('.prescription-modal')?.remove();
         
         if (window.voiceManager) {
@@ -493,7 +471,6 @@ class DoctorManager {
     sendPrescription() {
         this.savePrescription();
         
-        // Simulate sending prescription to patient
         if (window.voiceManager) {
             window.voiceManager.speak('Prescription sent to patient');
         }
@@ -511,12 +488,10 @@ class DoctorManager {
         const notes = document.getElementById('consultation-notes')?.value;
         if (!notes) return;
         
-        // Save notes to consultation
         if (this.currentConsultation) {
             this.currentConsultation.notes = notes;
             this.currentConsultation.notesTimestamp = new Date().toISOString();
             
-            // Save to storage
             localStorage.setItem('doctor_appointments_' + this.currentDoctor.id, JSON.stringify(this.appointments));
         }
         
@@ -528,26 +503,22 @@ class DoctorManager {
             clearInterval(this.consultationTimer);
         }
         
-        // Mark consultation as completed
         if (this.currentConsultation) {
             this.currentConsultation.status = 'completed';
             this.currentConsultation.endTime = new Date().toISOString();
             
             const startTime = new Date(this.currentConsultation.startTime);
             const endTime = new Date();
-            const duration = Math.round((endTime - startTime) / 60000); // minutes
+            const duration = Math.round((endTime - startTime) / 60000); 
             this.currentConsultation.actualDuration = duration;
         }
         
         this.consultationInProgress = false;
         
-        // Show consultation summary
         this.showConsultationSummary();
         
-        // Close consultation modal
         closeModal();
         
-        // Refresh appointment timeline
         this.refreshAppointmentTimeline();
         
         if (window.voiceManager) {
@@ -593,7 +564,6 @@ class DoctorManager {
     }
     
     viewPatientDossier(patientId) {
-        // Mock patient data - in real app, fetch from API
         const patientData = {
             id: patientId,
             name: this.appointments.find(apt => apt.patientId === patientId)?.patientName || 'Unknown Patient',
@@ -687,7 +657,6 @@ class DoctorManager {
     }
     
     switchDossierTab(tabName) {
-        // Update active tab
         const tabButtons = document.querySelectorAll('.dossier-tabs .tab-btn');
         tabButtons.forEach(btn => {
             btn.classList.remove('active');
@@ -696,12 +665,10 @@ class DoctorManager {
             }
         });
         
-        // Update content based on tab
         const content = document.getElementById('dossier-content');
         if (content) {
             switch (tabName) {
                 case 'overview':
-                    // Already rendered in initial content
                     break;
                 case 'history':
                     content.innerHTML = this.renderHistoryTab();
@@ -891,18 +858,14 @@ class DoctorManager {
     }
     
     setupAIAssistant() {
-        // Initialize AI assistant features
         this.aiAssistantActive = false;
         
-        // Setup drug interaction checker
         this.drugDatabase = this.loadDrugDatabase();
         
-        // Setup real-time suggestions system
         this.setupRealTimeSuggestions();
     }
     
     loadDrugDatabase() {
-        // Mock drug interaction database
         return {
             'metformin': {
                 interactions: ['alcohol', 'iodinated contrast'],
@@ -931,7 +894,6 @@ class DoctorManager {
             if (this.drugDatabase[drugName]) {
                 const drug = this.drugDatabase[drugName];
                 
-                // Check for interactions with other prescribed medications
                 medications.forEach(otherMed => {
                     if (otherMed !== med && drug.interactions.some(interaction => 
                         otherMed.toLowerCase().includes(interaction))) {
@@ -939,7 +901,6 @@ class DoctorManager {
                     }
                 });
                 
-                // Add warnings
                 warnings.push(...drug.warnings.map(warning => `${med}: ${warning}`));
             }
         });
@@ -948,7 +909,6 @@ class DoctorManager {
     }
     
     setupRealTimeSuggestions() {
-        // Setup system to provide real-time suggestions during consultations
         this.suggestionEngine = {
             symptomSuggestions: {
                 'chest pain': [
@@ -989,7 +949,6 @@ class DoctorManager {
     }
     
     loadPracticeAnalytics() {
-        // Generate or load practice statistics
         this.practiceStats = {
             monthlyPatients: 127,
             monthlyEarnings: 45680,
@@ -1005,7 +964,6 @@ class DoctorManager {
     }
     
     updatePracticeStatsUI() {
-        // Update practice statistics in the UI
         const statsCards = document.querySelectorAll('.stat-card');
         if (statsCards.length > 0) {
             const stats = [
@@ -1032,7 +990,6 @@ class DoctorManager {
     }
     
     animateNumber(element, finalValue) {
-        // Extract numeric value for animation
         const numericValue = parseInt(String(finalValue).replace(/[^\d]/g, ''));
         if (isNaN(numericValue)) return;
         
@@ -1054,7 +1011,6 @@ class DoctorManager {
     }
     
     setupConsultationTools() {
-        // Initialize consultation tools and utilities
         this.consultationTools = {
             templates: this.loadConsultationTemplates(),
             shortcuts: this.setupKeyboardShortcuts(),
@@ -1106,28 +1062,23 @@ ASSESSMENT AND PLAN:
     
     setupKeyboardShortcuts() {
         document.addEventListener('keydown', (event) => {
-            // Only activate shortcuts during consultations
             if (!this.consultationInProgress) return;
             
-            // Ctrl+M for mute/unmute
             if ((event.ctrlKey || event.metaKey) && event.key === 'm') {
                 event.preventDefault();
                 this.toggleMute();
             }
             
-            // Ctrl+V for video toggle
             if ((event.ctrlKey || event.metaKey) && event.key === 'v') {
                 event.preventDefault();
                 this.toggleVideo();
             }
             
-            // Ctrl+P for prescription
             if ((event.ctrlKey || event.metaKey) && event.key === 'p') {
                 event.preventDefault();
                 this.showPrescriptionPad();
             }
             
-            // Ctrl+N for notes
             if ((event.ctrlKey || event.metaKey) && event.key === 'n') {
                 event.preventDefault();
                 const notesField = document.getElementById('consultation-notes');
@@ -1137,7 +1088,6 @@ ASSESSMENT AND PLAN:
     }
     
     setupVoiceCommands() {
-        // Setup voice commands specific to doctor dashboard
         document.addEventListener('voiceResult', (event) => {
             const { transcript } = event.detail;
             
@@ -1162,7 +1112,6 @@ ASSESSMENT AND PLAN:
     }
     
     showSuccessMessage(message) {
-        // Create a temporary success notification
         const notification = document.createElement('div');
         notification.className = 'success-notification';
         notification.textContent = message;
@@ -1185,22 +1134,18 @@ ASSESSMENT AND PLAN:
         }, 3000);
     }
     
-    // Utility methods
     scheduleFollowUp() {
-        // Implement follow-up scheduling
         console.log('Scheduling follow-up appointment');
         closeModal();
     }
     
     sendSummaryToPatient() {
-        // Implement sending summary to patient
         console.log('Sending consultation summary to patient');
         this.showSuccessMessage('Summary sent to patient successfully!');
     }
     
     rescheduleAppointment(appointmentId) {
         console.log('Rescheduling appointment:', appointmentId);
-        // Implement rescheduling logic
         closeModal();
     }
     

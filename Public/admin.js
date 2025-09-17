@@ -295,14 +295,12 @@ class AdminManager {
         
         this.alerts.unshift(newAlert);
         
-        // Keep only last 10 alerts
         if (this.alerts.length > 10) {
             this.alerts = this.alerts.slice(0, 10);
         }
         
         this.updateAlertsUI();
         
-        // Show notification for critical alerts
         if (newAlert.type === 'critical') {
             this.showCriticalAlertNotification(newAlert);
         }
@@ -342,21 +340,18 @@ class AdminManager {
         
         document.body.appendChild(notification);
         
-        // Auto-remove after 10 seconds for critical alerts
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
             }
         }, 10000);
         
-        // Voice alert for critical notifications
         if (window.voiceManager) {
             window.voiceManager.speak(`Critical health alert: ${alert.message}`);
         }
     }
     
     updateSystemMetricsUI() {
-        // Update system metrics cards
         const metricsCards = document.querySelectorAll('.analytics-card');
         if (metricsCards.length >= 4) {
             const metrics = [
@@ -401,12 +396,10 @@ class AdminManager {
     }
     
     updateUserManagementUI() {
-        // This would update the user management table
         console.log('User management UI updated');
     }
     
     updateHealthAnalyticsUI() {
-        // Update health analytics displays
         const hotspotContainer = document.querySelector('.hotspot-indicators');
         if (hotspotContainer) {
             hotspotContainer.innerHTML = this.healthData.symptomHotspots.map(hotspot => `
@@ -445,7 +438,6 @@ class AdminManager {
     }
     
     updatePlatformAnalyticsUI() {
-        // Update platform analytics cards
         console.log('Platform analytics updated:', this.platformAnalytics);
     }
     
@@ -575,7 +567,6 @@ class AdminManager {
         const alert = this.alerts.find(a => a.id === alertId);
         if (!alert) return;
         
-        // Generate report content
         const reportContent = `
 ALERT REPORT
 ============
@@ -591,7 +582,6 @@ Generated: ${new Date().toLocaleString()}
 By: ${this.currentAdmin.name}
         `.trim();
         
-        // Create and download file
         const blob = new Blob([reportContent], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -603,9 +593,7 @@ By: ${this.currentAdmin.name}
         this.showSuccessNotification('Alert report exported successfully');
     }
     
-    // User Management Methods
     switchUserTab(tabName) {
-        // Update active tab
         const tabButtons = document.querySelectorAll('.management-tabs .tab-btn');
         tabButtons.forEach(btn => {
             btn.classList.remove('active');
@@ -614,7 +602,6 @@ By: ${this.currentAdmin.name}
             }
         });
         
-        // Update table content
         const tableContainer = document.querySelector('.user-table-container');
         if (tableContainer) {
             tableContainer.innerHTML = this.generateUserTable(tabName);
@@ -782,7 +769,6 @@ By: ${this.currentAdmin.name}
         if (userIndex > -1) {
             const user = this.users.pendingApprovals[userIndex];
             
-            // Move to appropriate active users list
             if (user.type === 'doctor') {
                 this.users.doctors.push({
                     ...user,
@@ -794,12 +780,10 @@ By: ${this.currentAdmin.name}
                 });
             }
             
-            // Remove from pending
             this.users.pendingApprovals.splice(userIndex, 1);
             
-            // Update UI
             this.updateUserManagementUI();
-            this.switchUserTab('pending'); // Refresh pending tab
+            this.switchUserTab('pending'); 
             
             this.showSuccessNotification(`${user.name} has been approved successfully`);
             
@@ -854,7 +838,6 @@ By: ${this.currentAdmin.name}
         if (userIndex > -1) {
             const user = this.users.pendingApprovals[userIndex];
             
-            // Log rejection (in real app, would notify user)
             console.log('User rejected:', {
                 userId,
                 name: user.name,
@@ -863,10 +846,8 @@ By: ${this.currentAdmin.name}
                 rejectedAt: new Date().toISOString()
             });
             
-            // Remove from pending
             this.users.pendingApprovals.splice(userIndex, 1);
             
-            // Update UI
             this.switchUserTab('pending');
             
             closeModal();
@@ -874,7 +855,6 @@ By: ${this.currentAdmin.name}
         }
     }
     
-    // Hotspot Management
     viewHotspotDetails(location) {
         const hotspot = this.healthData.symptomHotspots.find(h => h.location === location);
         if (!hotspot) return;
@@ -970,7 +950,6 @@ Generated By: ${this.currentAdmin.name}
         const hotspot = this.healthData.symptomHotspots.find(h => h.location === location);
         if (!hotspot) return;
         
-        // Create escalation alert
         const escalationAlert = {
             id: 'alert_escalation_' + Date.now(),
             type: 'critical',
@@ -985,7 +964,6 @@ Generated By: ${this.currentAdmin.name}
         this.alerts.unshift(escalationAlert);
         this.updateAlertsUI();
         
-        // Update hotspot alert level
         hotspot.alertLevel = 'high';
         this.updateHealthAnalyticsUI();
         
@@ -997,7 +975,6 @@ Generated By: ${this.currentAdmin.name}
         }
     }
     
-    // Utility Methods
     showSuccessNotification(message) {
         if (window.app && window.app.showSuccessNotification) {
             window.app.showSuccessNotification(message);
@@ -1007,7 +984,6 @@ Generated By: ${this.currentAdmin.name}
     }
     
     updateSystemMetrics() {
-        // Simulate system metric fluctuations
         this.systemMetrics.serverCpuUsage = Math.max(10, Math.min(95, 
             this.systemMetrics.serverCpuUsage + (Math.random() - 0.5) * 8));
         this.systemMetrics.serverMemoryUsage = Math.max(30, Math.min(90, 
@@ -1016,7 +992,6 @@ Generated By: ${this.currentAdmin.name}
             this.systemMetrics.networkLatency + (Math.random() - 0.5) * 10));
     }
     
-    // Additional placeholder methods for full functionality
     messageUser(userId) { console.log('Messaging user:', userId); }
     editUser(userId) { console.log('Editing user:', userId); }
     exportUserData(userId) { console.log('Exporting user data:', userId); }
@@ -1024,13 +999,10 @@ Generated By: ${this.currentAdmin.name}
     activateUser(userId) { console.log('Activating user:', userId); }
 }
 
-// Initialize admin manager
 const adminManager = new AdminManager();
 
-// Global functions for admin dashboard
 function showUserTab(tabName) {
     adminManager.switchUserTab(tabName);
 }
 
-// Export admin manager for use in other modules
 window.adminManager = adminManager;
