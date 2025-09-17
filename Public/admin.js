@@ -251,12 +251,10 @@ class AdminManager {
     }
     
     startRealTimeMonitoring() {
-        // Start real-time data updates
         setInterval(() => {
             this.updateRealTimeData();
-        }, 30000); // Update every 30 seconds
+        }, 30000); 
         
-        // Simulate new alerts
         setInterval(() => {
             this.simulateNewAlert();
         }, 5 * 60 * 1000); // New alert every 5 minutes
