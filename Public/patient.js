@@ -454,7 +454,7 @@ class PatientManager {
     
     setupEmergencyServices() {
         this.emergencyContacts = [
-            { name: 'Ambulance', number: '108', icon: '🚑' },
+            { name: 'Ambulance', number: '8178343824    ', icon: '🚑' },
             { name: 'Fire Department', number: '101', icon: '🚒' },
             { name: 'Police', number: '100', icon: '🚔' },
             { name: 'Women Helpline', number: '181', icon: '👮‍♀️' },
