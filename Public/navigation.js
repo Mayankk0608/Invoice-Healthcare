@@ -189,14 +189,17 @@ class NavigationManager {
     }
     
     initializeDoctorDashboard() {
-        // Load today's appointments
-        this.loadTodaysAppointments();
-        
-        // Initialize practice stats
-        this.updatePracticeStats();
-        
-        // Set up appointment action buttons
-        this.setupAppointmentButtons();
+    // Initialize doctor features if not already done
+        if (window.doctorManager) {
+            window.doctorManager.refreshAppointmentTimeline();
+            window.doctorManager.updatePracticeStatsUI();
+            
+            // Update doctor name in the UI
+            const doctorNameElement = document.getElementById('doctor-name');
+            if (doctorNameElement && window.doctorManager.currentDoctor) {
+                doctorNameElement.textContent = window.doctorManager.currentDoctor.name;
+            }
+        }
     }
     
     initializeAdminDashboard() {

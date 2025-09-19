@@ -376,7 +376,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-}
+}   
 
 .condition-item, .recommendation-item {
     display: flex;
@@ -488,6 +488,10 @@
     justify-content: center;
     z-index: 2000;
     backdrop-filter: blur(5px);
+}
+
+.prescription-modal {
+    z-index: 1001;
 }
 
 .modal-content {
@@ -739,6 +743,195 @@
     background: var(--gray-medium);
     color: var(--white);
 }
+
+/* Consultation Interface Styles */
+.consultation-interface {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    max-height: 800px;
+}
+
+.consultation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: 12px 12px 0 0;
+}
+
+.consultation-timer {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--diamond-blue-light);
+}
+
+.consultation-body {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.video-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.main-video {
+    flex: 3;
+    background: var(--card-bg);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doctor-video {
+    flex: 1;
+    background: var(--card-bg);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-placeholder {
+    text-align: center;
+    padding: 2rem;
+}
+
+.video-avatar {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.connection-status {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.consultation-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+.ai-assistant-panel {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.ai-assistant-panel.active {
+    border-left: 4px solid var(--diamond-blue-light);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.ai-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.suggestion-card {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.suggestion-card.warning {
+    border-left: 4px solid var(--warning);
+}
+
+.suggestion-card h5 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.suggestion-card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.suggestion-card li {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.consultation-notes {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.consultation-notes h4 {
+    margin: 0 0 1rem 0;
+}
+
+.consultation-notes textarea {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    resize: vertical;
+}
+
+.consultation-controls {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: 0 0 12px 12px;
+    justify-content: center;
+}
+
+.control-btn {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--diamond-blue-light);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    background: var(--diamond-blue-dark);
+    transform: translateY(-2px);
+}
+
+.control-btn.active {
+    background: var(--danger);
+}
+
+/* Success notifications */
+.success-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--success);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    z-index: 1001;
+    animation: slideInRight 0.3s ease;
+}
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
 
 /* Alert Components */
 .alert-list {

@@ -5,8 +5,119 @@ class DocInTheBoxApp {
         this.version = '1.0.0';
         this.initialized = false;
         this.currentUser = null;
-        this.apiEndpoint = 'https://api.docinthebox.com'; // Placeholder
+        
+        this.apiEndpoint = 'https://invoice-healthcare-default-rtdb.firebaseio.com'; 
+        this.authEndpoint = 'https://identitytoolkit.googleapis.com/v1/accounts'; 
+        this.medicalEndpoint = 'https://disease.sh/v3/covid-19';
+        this.ocrEndpoint = 'https://api.ocr.space/parse/image'; 
+        
+        this.apiKeys = {
+            firebase: 'AIzaSyAPDsowr-Czz8wWeWZjy-PFUfd6GyAz20M', 
+            ocr: 'helloworld'
+        };
+        
         this.initializeApp();
+    }
+
+    // Authentication with Firebase
+    async handleLogin(event) {
+        event.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        
+        try {
+            const response = await fetch(`${this.authEndpoint}:signInWithPassword?key=${this.apiKeys.firebase}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    returnSecureToken: true
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.idToken) {
+                this.currentUser = {
+                    id: data.localId,
+                    email: data.email,
+                    name: data.displayName || 'User'
+                };
+                
+                localStorage.setItem('sessionToken', data.idToken);
+                localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+                
+                this.showSuccessNotification('Logged in successfully!');
+                this.navigateAfterAuth();
+            } else {
+                this.showErrorNotification(data.error.message || 'Login failed');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            // Fallback to demo mode for college project
+            this.useDemoMode();
+        }
+    }
+
+    // Medical data from Disease.sh
+    async getDiseaseInfo(diseaseName) {
+        try {
+            const response = await fetch(`${this.medicalEndpoint}/${diseaseName}`);
+            return await response.json();
+        } catch (error) {
+            console.error('Medical API error:', error);
+            // Return mock data if API fails
+            return this.getMockDiseaseData(diseaseName);
+        }
+    }
+
+    // OCR functionality
+    async processInvoice(imageFile) {
+        const formData = new FormData();
+        formData.append('file', imageFile);
+        formData.append('apikey', this.apiKeys.ocr);
+        formData.append('language', 'eng');
+        
+        try {
+            const response = await fetch(this.ocrEndpoint, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            return data.ParsedResults[0].ParsedText;
+        } catch (error) {
+            console.error('OCR API error:', error);
+            return "Mock invoice data for demo purposes";
+        }
+    }
+
+    // Mock data for demo/fallback
+    getMockDiseaseData(diseaseName) {
+        const mockData = {
+            'covid': {
+                name: 'COVID-19',
+                symptoms: ['Fever', 'Cough', 'Shortness of breath'],
+                recommendations: ['Isolate', 'Rest', 'Consult doctor'],
+                urgency: 'High'
+            },
+            'flu': {
+                name: 'Influenza',
+                symptoms: ['Fever', 'Cough', 'Body aches'],
+                recommendations: ['Rest', 'Hydrate', 'Over-the-counter medicine'],
+                urgency: 'Medium'
+            }
+        };
+        
+        return mockData[diseaseName.toLowerCase()] || {
+            name: diseaseName,
+            symptoms: ['Symptom data not available'],
+            recommendations: ['Consult a healthcare professional'],
+            urgency: 'Unknown'
+        };
     }
     
     initializeApp() {
@@ -36,6 +147,369 @@ class DocInTheBoxApp {
         document.dispatchEvent(new CustomEvent('appInitialized', {
             detail: { version: this.version, timestamp: new Date().toISOString() }
         }));
+
+        if (window.doctorManager) {
+            console.log('Doctor manager initialized');
+        }
+    }
+
+    // API Call Method
+    async makeAPICall(endpoint, options = {}) {
+        try {
+            const defaultOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
+                    ...options.headers
+                }
+            };
+            
+            const response = await fetch(endpoint, {
+                ...defaultOptions,
+                ...options
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('API call failed:', error);
+            this.showErrorNotification('Service temporarily unavailable');
+            throw error;
+        }
+    }
+
+    // Updated Authentication Methods
+    initializeAuthentication() {
+        // Check for existing session
+        const sessionToken = localStorage.getItem('sessionToken');
+        if (sessionToken) {
+            this.validateSession(sessionToken);
+        }
+        
+        // Setup login/logout handlers
+        this.setupAuthHandlers();
+    }
+    
+    async validateSession(token) {
+        try {
+            const response = await this.makeAPICall(`${this.authEndpoint}/validate-session`, {
+                method: 'POST',
+                body: JSON.stringify({ token })
+            });
+            
+            if (response.valid) {
+                this.currentUser = response.user;
+                console.log('Session validated for user:', this.currentUser.name);
+            } else {
+                localStorage.removeItem('sessionToken');
+                localStorage.removeItem('currentUser');
+            }
+        } catch (error) {
+            console.error('Session validation failed:', error);
+        }
+    }
+    
+    async handleLogin(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const loginData = Object.fromEntries(formData);
+        
+        // Show loading state
+        const submitBtn = event.target.querySelector('[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Logging in...';
+        submitBtn.disabled = true;
+        
+        try {
+            // API call to authenticate
+            const response = await this.makeAPICall(`${this.authEndpoint}/login`, {
+                method: 'POST',
+                body: JSON.stringify(loginData)
+            });
+            
+            if (response.success) {
+                this.currentUser = response.user;
+                
+                localStorage.setItem('sessionToken', response.token);
+                localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+                
+                closeModal();
+                this.showSuccessNotification('Logged in successfully!');
+                
+                // Navigate based on user type
+                this.navigateAfterAuth();
+                
+                // Track login event
+                this.trackEvent('user_login', {
+                    user_id: this.currentUser.id,
+                    user_type: this.currentUser.type
+                });
+            } else {
+                this.showErrorNotification(response.message || 'Login failed');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            this.showErrorNotification('Login failed. Please try again.');
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    }
+    
+    async handleSignup(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const signupData = Object.fromEntries(formData);
+        
+        // Validate password strength
+        if (!this.isPasswordStrong(signupData.password)) {
+            this.showErrorNotification('Password must be at least 8 characters with letters and numbers');
+            return;
+        }
+        
+        // Show loading state
+        const submitBtn = event.target.querySelector('[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Creating Account...';
+        submitBtn.disabled = true;
+        
+        try {
+            // API call to register
+            const response = await this.makeAPICall(`${this.authEndpoint}/register`, {
+                method: 'POST',
+                body: JSON.stringify(signupData)
+            });
+            
+            if (response.success) {
+                this.currentUser = response.user;
+                
+                localStorage.setItem('sessionToken', response.token);
+                localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+                
+                closeModal();
+                this.showSuccessNotification('Account created successfully!');
+                
+                // Show email verification notice
+                this.showEmailVerificationNotice();
+                
+                // Track signup event
+                this.trackEvent('user_signup', {
+                    user_id: this.currentUser.id,
+                    user_type: this.currentUser.type
+                });
+            } else {
+                this.showErrorNotification(response.message || 'Registration failed');
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            this.showErrorNotification('Registration failed. Please try again.');
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    }
+    
+    // Medical API Integration
+    async analyzeSymptoms(symptoms, language = 'en') {
+        try {
+            this.trackEvent('symptom_analysis_started', {
+                symptoms: symptoms.substring(0, 100), // Limit length for analytics
+                language: language
+            });
+            
+            const response = await this.makeAPICall(`${this.apiEndpoint}/symptoms/analyze`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    symptoms: symptoms,
+                    language: language,
+                    user_id: this.currentUser?.id
+                })
+            });
+            
+            if (response.success) {
+                this.trackEvent('symptom_analysis_completed', {
+                    conditions: response.conditions,
+                    urgency: response.urgency
+                });
+                
+                return response;
+            } else {
+                throw new Error(response.message || 'Analysis failed');
+            }
+        } catch (error) {
+            console.error('Symptom analysis error:', error);
+            this.trackEvent('symptom_analysis_failed', {
+                error: error.message
+            });
+            throw error;
+        }
+    }
+    
+    // Speech API Integration
+    async speechToText(audioBlob, language = 'en-US') {
+        try {
+            const formData = new FormData();
+            formData.append('audio', audioBlob);
+            formData.append('language', language);
+            
+            const response = await fetch(`${this.speechEndpoint}/recognize`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`
+                },
+                body: formData
+            });
+            
+            if (!response.ok) {
+                throw new Error('Speech recognition failed');
+            }
+            
+            const data = await response.json();
+            return data.text;
+        } catch (error) {
+            console.error('Speech recognition error:', error);
+            
+            // Fallback to browser's speech recognition if available
+            if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+                return this.fallbackSpeechRecognition(language);
+            }
+            
+            throw error;
+        }
+    }
+    
+    async textToSpeech(text, language = 'en-US') {
+        try {
+            const response = await this.makeAPICall(`${this.speechEndpoint}/synthesize`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    text: text,
+                    language: language
+                })
+            });
+            
+            if (response.success) {
+                // Play the audio
+                const audio = new Audio(response.audioUrl);
+                audio.play();
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Text to speech error:', error);
+            
+            // Fallback to browser's speech synthesis
+            if (window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = language;
+                window.speechSynthesis.speak(utterance);
+                return true;
+            }
+            
+            return false;
+        }
+    }
+    
+    // Health Data API (FHIR compatible)
+    async saveHealthData(data, type = 'observation') {
+        try {
+            const response = await this.makeAPICall(`${this.fhirEndpoint}/${type}`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    ...data,
+                    patientId: this.currentUser?.id,
+                    timestamp: new Date().toISOString()
+                })
+            });
+            
+            if (response.success) {
+                this.trackEvent('health_data_saved', {
+                    data_type: type,
+                    patient_id: this.currentUser?.id
+                });
+                
+                return response;
+            }
+            throw new Error(response.message || 'Failed to save health data');
+        } catch (error) {
+            console.error('Health data save error:', error);
+            throw error;
+        }
+    }
+    
+    async getHealthData(type = 'observation', limit = 10) {
+        try {
+            const response = await this.makeAPICall(
+                `${this.fhirEndpoint}/${type}?patientId=${this.currentUser?.id}&limit=${limit}`
+            );
+            
+            if (response.success) {
+                return response.data;
+            }
+            throw new Error(response.message || 'Failed to fetch health data');
+        } catch (error) {
+            console.error('Health data fetch error:', error);
+            throw error;
+        }
+    }
+    
+    // Notifications API
+    async sendNotification(userId, title, message, data = {}) {
+        try {
+            const response = await this.makeAPICall(`${this.notificationEndpoint}/send`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    userId: userId,
+                    title: title,
+                    message: message,
+                    data: data
+                })
+            });
+            
+            return response.success;
+        } catch (error) {
+            console.error('Notification error:', error);
+            return false;
+        }
+    }
+    
+    // Analytics API
+    async trackEvent(eventName, eventData = {}) {
+        const event = {
+            name: eventName,
+            data: eventData,
+            timestamp: new Date().toISOString(),
+            sessionId: this.analytics?.sessionId,
+            page: navigationManager?.getCurrentPage() || 'unknown',
+            userId: this.currentUser?.id,
+            userType: this.currentUser?.type,
+            version: this.version
+        };
+        
+        // Send to analytics service
+        try {
+            await fetch(`${this.analyticsEndpoint}/track`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.apiKeys.analytics}`
+                },
+                body: JSON.stringify(event)
+            });
+        } catch (error) {
+            console.error('Analytics error:', error);
+        }
+        
+        // Keep local copy for debugging
+        this.analytics?.events.push(event);
+        
+        // Keep only last 100 events in memory
+        if (this.analytics && this.analytics.events.length > 100) {
+            this.analytics.events = this.analytics.events.slice(-100);
+        }
     }
     
     setupGlobalEventListeners() {
@@ -554,6 +1028,35 @@ class DocInTheBoxApp {
             timestamp: new Date().toISOString()
         });
     }
+
+     // Helper method for fallback speech recognition
+    fallbackSpeechRecognition(language = 'en-US') {
+        return new Promise((resolve, reject) => {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                reject(new Error('Speech recognition not supported'));
+                return;
+            }
+            
+            const recognition = new SpeechRecognition();
+            recognition.lang = language;
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                resolve(transcript);
+            };
+            
+            recognition.onerror = (event) => {
+                reject(new Error(event.error));
+            };
+            
+            recognition.start();
+        });
+    }
+    
     
     trackEvent(eventName, eventData = {}) {
         const event = {

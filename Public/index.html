@@ -19,8 +19,6 @@
                 Doc-In-The-Box
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="showLogin()">Login</button>
-                <button class="btn btn-primary" onclick="showSignup()">Sign Up</button>
                 <button class="voice-toggle-btn" onclick="toggleGlobalVoice()" title="Toggle Voice Assistant">
                     <span class="voice-icon">🎤</span>
                 </button>
@@ -30,82 +28,97 @@
 
     <div id="app-container">
         
-        <div id="landing-page" class="page active">
-            <section class="hero-section">
-                <div class="hero-content">
-                    <h1 class="hero-title animated-title">Bridging Healthcare with AI</h1>
-                    <p class="hero-subtitle">Providing immediate, accessible, and evidence-based medical triage and preliminary support to individuals in underserved communities, in their native language.</p>
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary btn-large" onclick="navigateTo('patient-dashboard')">
-                            <span class="btn-icon">🔍</span>
-                            Start Symptom Check
-                        </button>
-                        <button class="btn btn-secondary btn-large" onclick="navigateTo('doctor-dashboard')">
-                            <span class="btn-icon">👨‍⚕️</span>
-                            Doctor Portal
-                        </button>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="floating-cards">
-                        <div class="floating-card">🩺 AI Diagnosis</div>
-                        <div class="floating-card">🎤 Voice Recognition</div>
-                        <div class="floating-card">🌐 Multi-Language</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="dashboard-preview">
-                <div class="section-header">
-                    <h2>Three Powerful Dashboards</h2>
-                    <p>Complete healthcare ecosystem for patients, doctors, and administrators</p>
-                </div>
-                
-                <div class="dashboard-cards">
-                    <div class="dashboard-card" onclick="navigateTo('patient-dashboard')">
-                        <div class="card-icon patient-icon">📱</div>
-                        <h3 class="card-title">Patient App</h3>
-                        <p class="card-description">AI-powered symptom checker with voice support, appointment booking, and health wallet management.</p>
-                        <div class="card-features">
-                            <span class="feature-tag">Voice Input</span>
-                            <span class="feature-tag">AI Triage</span>
-                            <span class="feature-tag">Multi-Language</span>
-                        </div>
-                        <button class="btn btn-outline">Explore Patient App</button>
+        <!-- Login/Signup Page -->
+        <div id="auth-page" class="page active">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <h1 class="auth-title">Welcome to Doc-In-The-Box</h1>
+                        <p class="auth-subtitle">AI-powered healthcare platform for everyone</p>
                     </div>
 
-                    <div class="dashboard-card" onclick="navigateTo('doctor-dashboard')">
-                        <div class="card-icon doctor-icon">👨‍⚕️</div>
-                        <h3 class="card-title">Doctor Portal</h3>
-                        <p class="card-description">Complete practice management with AI assistant, patient dossiers, and video consultations.</p>
-                        <div class="card-features">
-                            <span class="feature-tag">Video Calls</span>
-                            <span class="feature-tag">AI Assistant</span>
-                            <span class="feature-tag">Practice Mgmt</span>
-                        </div>
-                        <button class="btn btn-outline">Access Portal</button>
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" onclick="showAuthTab('login')">Login</button>
+                        <button class="auth-tab" onclick="showAuthTab('signup')">Sign Up</button>
                     </div>
 
-                    <div class="dashboard-card" onclick="navigateTo('admin-dashboard')">
-                        <div class="card-icon admin-icon">⚙️</div>
-                        <h3 class="card-title">Admin Panel</h3>
-                        <p class="card-description">System oversight with public health analytics and early disease outbreak detection.</p>
-                        <div class="card-features">
-                            <span class="feature-tag">Analytics</span>
-                            <span class="feature-tag">Monitoring</span>
-                            <span class="feature-tag">Alerts</span>
+                    <div id="login-form" class="auth-form active">
+                        <form onsubmit="handleLogin(event)">
+                            <div class="form-group">
+                                <label class="form-label">Email or Phone</label>
+                                <input type="text" class="form-input" id="login-email" placeholder="Enter email or phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-input" id="login-password" placeholder="Enter password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large">Login</button>
+                        </form>
+                    </div>
+
+                    <div id="signup-form" class="auth-form">
+                        <form onsubmit="handleSignup(event)">
+                            <div class="form-group">
+                                <label class="form-label">User Type</label>
+                                <select class="form-select" id="signup-type" required>
+                                    <option value="">Select user type</option>
+                                    <option value="patient">Patient</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="admin">Administrator</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" id="signup-name" placeholder="Enter full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" id="signup-email" placeholder="Enter email" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-input" id="signup-phone" placeholder="Enter phone number" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-input" id="signup-password" placeholder="Enter password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large">Sign Up</button>
+                        </form>
+                    </div>
+
+                    <div class="demo-credentials">
+                        <h3>Demo Credentials</h3>
+                        <div class="demo-cards">
+                            <div class="demo-card" onclick="fillDemoCredentials('patient')">
+                                <div class="demo-icon">👤</div>
+                                <h4>Patient Demo</h4>
+                                <p>patient@demo.com</p>
+                                <p>demo123</p>
+                            </div>
+                            <div class="demo-card" onclick="fillDemoCredentials('doctor')">
+                                <div class="demo-icon">👨‍⚕️</div>
+                                <h4>Doctor Demo</h4>
+                                <p>doctor@demo.com</p>
+                                <p>demo123</p>
+                            </div>
+                            <div class="demo-card" onclick="fillDemoCredentials('admin')">
+                                <div class="demo-icon">⚙️</div>
+                                <h4>Admin Demo</h4>
+                                <p>admin@demo.com</p>
+                                <p>demo123</p>
+                            </div>
                         </div>
-                        <button class="btn btn-outline">View Dashboard</button>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
 
         <div id="patient-dashboard" class="page">
             <div class="dashboard-header">
                 <h1>Patient Dashboard</h1>
                 <div class="header-actions">
-                    <button class="btn btn-secondary" onclick="navigateTo('landing-page')">← Back to Home</button>
+                    <button class="btn btn-secondary" onclick="logout()">← Logout</button>
                     <div class="language-selector">
                         <select id="language-select" onchange="changeLanguage(this.value)">
                             <option value="en">English</option>
@@ -206,11 +219,12 @@
             </div>
         </div>
 
+        <!-- Doctor Dashboard -->
         <div id="doctor-dashboard" class="page">
             <div class="dashboard-header">
                 <h1>Doctor Portal</h1>
                 <div class="header-actions">
-                    <button class="btn btn-secondary" onclick="navigateTo('landing-page')">← Back to Home</button>
+                    <button class="btn btn-secondary" onclick="logout()">← Logout</button>
                     <div class="doctor-profile">
                         <img src="https://via.placeholder.com/40" alt="Doctor" class="profile-avatar">
                         <span id="doctor-name">Dr. Sarah Johnson</span>
@@ -219,12 +233,15 @@
             </div>
 
             <div class="dashboard-content">
+                <!-- Today's Schedule -->
                 <div class="schedule-section">
                     <h2>📅 Today's Appointments</h2>
                     <div class="appointment-timeline">
+                        <!-- Appointments will be loaded dynamically by doctor.js -->
                     </div>
                 </div>
 
+                <!-- AI Assistant Panel -->
                 <div class="ai-assistant-panel">
                     <h2>🧠 AI Medical Assistant</h2>
                     <div class="assistant-features">
@@ -244,6 +261,7 @@
                     </div>
                 </div>
 
+                <!-- Practice Analytics -->
                 <div class="analytics-section">
                     <h2>📊 Practice Overview</h2>
                     <div class="stats-grid">
@@ -276,7 +294,7 @@
             <div class="dashboard-header">
                 <h1>System Administration</h1>
                 <div class="header-actions">
-                    <button class="btn btn-secondary" onclick="navigateTo('landing-page')">← Back to Home</button>
+                    <button class="btn btn-secondary" onclick="logout()">← Logout</button>
                     <div class="admin-controls">
                         <button class="btn btn-outline btn-small">System Health</button>
                         <button class="btn btn-danger btn-small">Emergency Alert</button>
@@ -434,16 +452,81 @@
     </div>
 
     <div id="modal-overlay" class="modal-overlay" style="display: none;" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <div class="modal-header">
-            <h3 id="modal-title">Modal Title</h3>
-            <button class="modal-close" onclick="closeModal()">×</button>
-        </div>
-        <div class="modal-body" id="modal-body">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+            </div>
         </div>
     </div>
-</div>
 
+    <script>
+        // Authentication functions
+        function showAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + '-form').classList.add('active');
+        }
+
+        function fillDemoCredentials(userType) {
+            const credentials = {
+                patient: { email: 'patient@demo.com', password: 'demo123' },
+                doctor: { email: 'doctor@demo.com', password: 'demo123' },
+                admin: { email: 'admin@demo.com', password: 'demo123' }
+            };
+
+            document.getElementById('login-email').value = credentials[userType].email;
+            document.getElementById('login-password').value = credentials[userType].password;
+            
+            // Switch to login tab
+            showAuthTab('login');
+            document.querySelector('.auth-tab').click();
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Demo credential checking
+            if (password === 'demo123') {
+                if (email === 'patient@demo.com') {
+                    navigateTo('patient-dashboard');
+                } else if (email === 'doctor@demo.com') {
+                    navigateTo('doctor-dashboard');
+                } else if (email === 'admin@demo.com') {
+                    navigateTo('admin-dashboard');
+                } else {
+                    alert('Invalid credentials. Please use demo credentials.');
+                }
+            } else {
+                alert('Invalid credentials. Please use demo credentials.');
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            alert('Sign up functionality would be implemented in a real application.');
+        }
+
+        function logout() {
+            navigateTo('auth-page');
+            // Clear form fields
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
+        }
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+    </script>
     <script src="voice.js"></script>
     <script src="navigation.js"></script>
     <script src="patient.js"></script>
