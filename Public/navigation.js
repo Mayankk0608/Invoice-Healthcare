@@ -228,7 +228,30 @@ class NavigationManager {
         }
     }
     
-    loadTodaysAppointments() {
+    async loadTodaysAppointments() {
+        try {
+            // Replace with actual API call
+            const response = await fetch(`${app.apiEndpoint}/appointments/today`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`
+                }
+            });
+            
+            if (response.ok) {
+                const appointments = await response.json();
+                // Update appointment timeline in UI
+                this.renderAppointments(appointments);
+            } else {
+                // Fallback to mock data
+                this.useMockAppointments();
+            }
+        } catch (error) {
+            console.error('Failed to load appointments:', error);
+            this.useMockAppointments();
+        }
+    }
+
+    useMockAppointments() {
         // Simulate loading appointments from API
         const appointments = [
             {
@@ -256,7 +279,7 @@ class NavigationManager {
                 status: 'upcoming'
             }
         ];
-        
+        this.renderAppointments(appointments);
         // Update appointment timeline in UI
         console.log('Loaded appointments:', appointments);
     }
@@ -376,14 +399,23 @@ class NavigationManager {
         `);
     }
     
-    loadSystemAnalytics() {
-        // Simulate loading analytics data
-        const analyticsData = {
-            dailyUsers: 12847,
-            consultations: 1234,
-            accuracy: 94.7,
-            uptime: 99.9
-        };
+    async loadSystemAnalytics() {
+        try {
+            // Replace with actual analytics API call
+            const response = await fetch(`${app.apiEndpoint}/analytics/overview`);
+            const analyticsData = await response.json();
+            
+            // Update analytics cards with real data
+            this.updateAnalyticsUI(analyticsData);
+        } catch (error) {
+            console.error('Failed to load analytics:', error);
+            // Use mock data as fallback
+            const analyticsData = {
+                dailyUsers: 12847,
+                consultations: 1234,
+                accuracy: 94.7,
+                uptime: 99.9
+            };
         
         // Update analytics cards with animation
         setTimeout(() => {
@@ -395,8 +427,27 @@ class NavigationManager {
             });
         }, 500);
     }
+        this.updateAnalyticsUI(analyticsData);
+    }
     
-    loadUserManagement() {
+    async loadUserManagement() {
+        try {
+            const response = await fetch(`${app.apiEndpoint}/users/doctors`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`
+                }
+            });
+            
+            if (response.ok) {
+                const users = await response.json();
+                this.renderUserTable(users);
+            }
+        } 
+        catch (error) {
+            console.error('Failed to load users:', error);
+            // Continue with UI setup without data
+        }
+            
         // Initialize user management tabs
         const tabButtons = document.querySelectorAll('.tab-btn');
         tabButtons.forEach(btn => {

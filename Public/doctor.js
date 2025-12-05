@@ -31,20 +31,62 @@ class DoctorManager {
         this.setupConsultationTools();
     }
     
-    loadDoctorData() {
-        const savedAppointments = localStorage.getItem('doctor_appointments_' + this.currentDoctor.id);
-        if (savedAppointments) {
-            try {
-                this.appointments = JSON.parse(savedAppointments);
-            } catch (error) {
-                console.error('Error loading appointments:', error);
+    // Replace the constructor with API call
+    async loadDoctorProfile(doctorId) {
+        try {
+            const token = localStorage.getItem('sessionToken');
+            const response = await fetch(`${app.apiEndpoint}/doctors/${doctorId}.json?auth=${token}`);
+            if (response.ok) {
+                this.currentDoctor = await response.json();
+            } else {
+                // Fallback to mock data
+                console.warn('Using mock doctor data');
+            }
+        } catch (error) {
+            console.error('Failed to load doctor profile:', error);
+        }
+    }
+
+    // Replace loadDoctorData method
+    async loadDoctorData() {
+        try {
+            const token = localStorage.getItem('sessionToken');
+            const response = await fetch(`${app.apiEndpoint}/doctors/${this.currentDoctor.id}/appointments.json?auth=${token}`);
+            
+            if (response.ok) {
+                const data = await response.json();
+                this.appointments = data ? Object.values(data) : this.generateMockAppointments();
+            } else {
                 this.appointments = this.generateMockAppointments();
             }
-        } else {
+        } catch (error) {
+            console.error('Error loading appointments:', error);
             this.appointments = this.generateMockAppointments();
         }
         
         this.refreshAppointmentTimeline();
+    }
+
+    // Add method to save appointments to Firebase
+    async saveAppointments() {
+        try {
+            const token = localStorage.getItem('sessionToken');
+            const response = await fetch(
+                `${app.apiEndpoint}/doctors/${this.currentDoctor.id}/appointments.json?auth=${token}`,
+                {
+                    method: 'PUT',
+                    body: JSON.stringify(this.appointments)
+                }
+            );
+            
+            if (!response.ok) {
+                throw new Error('Failed to save appointments');
+            }
+        } catch (error) {
+            console.error('Error saving appointments:', error);
+            // Fallback to localStorage
+            localStorage.setItem('doctor_appointments_' + this.currentDoctor.id, JSON.stringify(this.appointments));
+        }
     }
     
     generateMockAppointments() {
@@ -478,10 +520,35 @@ class DoctorManager {
         this.showSuccessMessage('Prescription sent to patient!');
     }
     
-    savePrescriptionToStorage(prescription) {
-        const prescriptions = JSON.parse(localStorage.getItem('prescriptions') || '[]');
-        prescriptions.push(prescription);
-        localStorage.setItem('prescriptions', JSON.stringify(prescriptions));
+    // Enhanced savePrescriptionToStorage method
+    async savePrescriptionToStorage(prescription) {
+        try {
+            const token = localStorage.getItem('sessionToken');
+            const response = await fetch(
+                `${app.apiEndpoint}/prescriptions.json?auth=${token}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(prescription)
+                }
+            );
+            
+            if (!response.ok) {
+                throw new Error('Failed to save prescription');
+            }
+            
+            const data = await response.json();
+            prescription.id = data.name; // Firebase returns the key as "name"
+            
+        } catch (error) {
+            console.error('Error saving prescription:', error);
+            // Fallback to localStorage
+            const prescriptions = JSON.parse(localStorage.getItem('prescriptions') || '[]');
+            prescriptions.push(prescription);
+            localStorage.setItem('prescriptions', JSON.stringify(prescriptions));
+        }
     }
     
     saveNotes() {
