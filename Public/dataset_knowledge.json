@@ -1,0 +1,1592 @@
+{
+  "sourceFiles": [
+    "Datasets/Common_Health_Disease/bacteria_list_200.csv",
+    "Datasets/Diabaties_patient/diabetes_binary_5050split_health_indicators_BRFSS2015.csv",
+    "Datasets/Heart_attacks/2- share-of-deaths-from-major-causes.csv",
+    "Datasets/Heart_attacks/8- cardiovascular-disease-death-rate-who-mdb.csv"
+  ],
+  "totalBacteria": 199,
+  "bacteria": [
+    {
+      "name": "Escherichia coli",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Food poisoning",
+        "Urinary tract infection (UTI)",
+        "Gastroenteritis"
+      ]
+    },
+    {
+      "name": "Staphylococcus aureus",
+      "family": "Staphylococcaceae",
+      "whereFound": "Skin, nasal passages",
+      "harmful": true,
+      "associatedConditions": [
+        "Skin infection",
+        "Abscess",
+        "Food poisoning",
+        "Bacteremia"
+      ]
+    },
+    {
+      "name": "Lactobacillus acidophilus",
+      "family": "Lactobacillaceae",
+      "whereFound": "Human mouth & intestine",
+      "harmful": false,
+      "associatedConditions": [
+        "Probiotic benefit",
+        "Digestive health"
+      ]
+    },
+    {
+      "name": "Bacillus subtilis",
+      "family": "Bacillaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Clostridium botulinum",
+      "family": "Clostridiaceae",
+      "whereFound": "Soil, improperly canned foods",
+      "harmful": true,
+      "associatedConditions": [
+        "Botulism",
+        "Severe muscle paralysis",
+        "Foodborne illness"
+      ]
+    },
+    {
+      "name": "Streptococcus pneumoniae",
+      "family": "Streptococcaceae",
+      "whereFound": "Throat, nasal passages",
+      "harmful": true,
+      "associatedConditions": [
+        "Pneumonia",
+        "Sinusitis",
+        "Otitis media",
+        "Meningitis"
+      ]
+    },
+    {
+      "name": "Pseudomonas aeruginosa",
+      "family": "Pseudomonadaceae",
+      "whereFound": "Soil, water, skin flora",
+      "harmful": true,
+      "associatedConditions": [
+        "Hospital-acquired infection",
+        "Pneumonia",
+        "UTI"
+      ]
+    },
+    {
+      "name": "Mycobacterium tuberculosis",
+      "family": "Mycobacteriaceae",
+      "whereFound": "Lungs",
+      "harmful": true,
+      "associatedConditions": [
+        "Tuberculosis",
+        "Chronic cough",
+        "Weight loss",
+        "Night sweats"
+      ]
+    },
+    {
+      "name": "Vibrio cholerae",
+      "family": "Vibrionaceae",
+      "whereFound": "Contaminated water",
+      "harmful": true,
+      "associatedConditions": [
+        "Cholera",
+        "Profuse watery diarrhea",
+        "Severe dehydration"
+      ]
+    },
+    {
+      "name": "Salmonella enterica",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Typhoid fever",
+        "Salmonellosis",
+        "Abdominal cramps"
+      ]
+    },
+    {
+      "name": "Helicobacter pylori",
+      "family": "Helicobacteraceae",
+      "whereFound": "Stomach lining",
+      "harmful": true,
+      "associatedConditions": [
+        "Peptic ulcer disease",
+        "Chronic gastritis",
+        "Dyspepsia"
+      ]
+    },
+    {
+      "name": "Neisseria gonorrhoeae",
+      "family": "Neisseriaceae",
+      "whereFound": "Genitourinary tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Gonorrhea",
+        "Genitourinary tract infection"
+      ]
+    },
+    {
+      "name": "Lactococcus lactis",
+      "family": "Streptococcaceae",
+      "whereFound": "Milk, plants",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Bacteroides fragilis",
+      "family": "Bacteroidaceae",
+      "whereFound": "Gastrointestinal tract",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Campylobacter jejuni",
+      "family": "Campylobacteraceae",
+      "whereFound": "Intestinal tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Campylobacteriosis",
+        "Enteritis",
+        "Diarrhea"
+      ]
+    },
+    {
+      "name": "Listeria monocytogenes",
+      "family": "Listeriaceae",
+      "whereFound": "Soil, water",
+      "harmful": true,
+      "associatedConditions": [
+        "Listeriosis",
+        "Foodborne infection",
+        "Meningitis in newborns"
+      ]
+    },
+    {
+      "name": "Acetobacter aceti",
+      "family": "Acetobacteraceae",
+      "whereFound": "Fruits, vinegar",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Streptococcus mutans",
+      "family": "Streptococcaceae",
+      "whereFound": "Human mouth",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Propionibacterium acnes",
+      "family": "Propionibacteriaceae",
+      "whereFound": "Skin",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Bifidobacterium bifidum",
+      "family": "Bifidobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Clostridium difficile",
+      "family": "Clostridiaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Pseudomembranous colitis",
+        "Severe antibiotic-associated diarrhea"
+      ]
+    },
+    {
+      "name": "Legionella pneumophila",
+      "family": "Legionellaceae",
+      "whereFound": "Water systems",
+      "harmful": true,
+      "associatedConditions": [
+        "Legionnaires disease",
+        "Severe atypical pneumonia"
+      ]
+    },
+    {
+      "name": "Borrelia burgdorferi",
+      "family": "Spirochaetaceae",
+      "whereFound": "Tick-infested areas",
+      "harmful": true,
+      "associatedConditions": [
+        "Lyme disease",
+        "Bullseye rash",
+        "Joint pain"
+      ]
+    },
+    {
+      "name": "Treponema pallidum",
+      "family": "Spirochaetaceae",
+      "whereFound": "Human body",
+      "harmful": true,
+      "associatedConditions": [
+        "Syphilis",
+        "Systemic lesions"
+      ]
+    },
+    {
+      "name": "Chlamydia trachomatis",
+      "family": "Chlamydiaceae",
+      "whereFound": "Human genitourinary tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Chlamydia",
+        "Trachoma",
+        "Urogenital infection"
+      ]
+    },
+    {
+      "name": "Mycoplasma pneumoniae",
+      "family": "Mycoplasmataceae",
+      "whereFound": "Respiratory tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Walking pneumonia",
+        "Atypical respiratory infection"
+      ]
+    },
+    {
+      "name": "Streptococcus pyogenes",
+      "family": "Streptococcaceae",
+      "whereFound": "Throat, skin",
+      "harmful": true,
+      "associatedConditions": [
+        "Strep throat",
+        "Scarlet fever",
+        "Rheumatic fever",
+        "Impetigo"
+      ]
+    },
+    {
+      "name": "Haemophilus influenzae",
+      "family": "Pasteurellaceae",
+      "whereFound": "Respiratory tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Epiglottitis",
+        "Bacterial meningitis",
+        "Pneumonia"
+      ]
+    },
+    {
+      "name": "Leptospira interrogans",
+      "family": "Leptospiraceae",
+      "whereFound": "Water contaminated by animal urine",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Streptococcus agalactiae",
+      "family": "Streptococcaceae",
+      "whereFound": "Intestinal and genitourinary tracts",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Shigella dysenteriae",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Bacillary dysentery",
+        "Shigellosis",
+        "Bloody diarrhea"
+      ]
+    },
+    {
+      "name": "Enterococcus faecalis",
+      "family": "Enterococcaceae",
+      "whereFound": "Human gut",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Corynebacterium diphtheriae",
+      "family": "Corynebacteriaceae",
+      "whereFound": "Throat",
+      "harmful": true,
+      "associatedConditions": [
+        "Diphtheria",
+        "Pseudomembrane in throat",
+        "Breathing difficulty"
+      ]
+    },
+    {
+      "name": "Klebsiella pneumoniae",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Mouth, skin, intestines",
+      "harmful": true,
+      "associatedConditions": [
+        "Klebsiella pneumonia",
+        "Severe respiratory infection",
+        "UTI"
+      ]
+    },
+    {
+      "name": "Rickettsia rickettsii",
+      "family": "Rickettsiaceae",
+      "whereFound": "Tick-infested areas",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Serratia marcescens",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Soil, water, intestines",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Proteus mirabilis",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Gardnerella vaginalis",
+      "family": "Bifidobacteriaceae",
+      "whereFound": "Genitourinary tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Francisella tularensis",
+      "family": "Francisellaceae",
+      "whereFound": "Infected animals, water",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Yersinia pestis",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Infected fleas",
+      "harmful": true,
+      "associatedConditions": [
+        "Plague",
+        "Bubonic plague",
+        "Lymph node swelling"
+      ]
+    },
+    {
+      "name": "Clostridium perfringens",
+      "family": "Clostridiaceae",
+      "whereFound": "Soil, intestines",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Staphylococcus epidermidis",
+      "family": "Staphylococcaceae",
+      "whereFound": "Skin",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Actinomyces israelii",
+      "family": "Actinomycetaceae",
+      "whereFound": "Mouth, throat",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Fusobacterium nucleatum",
+      "family": "Fusobacteriaceae",
+      "whereFound": "Mouth, throat",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Brucella abortus",
+      "family": "Brucellaceae",
+      "whereFound": "Infected animals",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Coxiella burnetii",
+      "family": "Coxiellaceae",
+      "whereFound": "Infected animals",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Streptococcus salivarius",
+      "family": "Streptococcaceae",
+      "whereFound": "Human mouth, throat",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Streptomyces coelicolor",
+      "family": "Streptomycetaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Rhodobacter sphaeroides",
+      "family": "Rhodobacteraceae",
+      "whereFound": "Freshwater, marine environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Caulobacter crescentus",
+      "family": "Caulobacteraceae",
+      "whereFound": "Freshwater",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Anabaena sp.",
+      "family": "Nostocaceae",
+      "whereFound": "Freshwater environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Nitrosomonas europaea",
+      "family": "Nitrosomonadaceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Rhizobium leguminosarum",
+      "family": "Rhizobiaceae",
+      "whereFound": "Root nodules of legumes",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Agrobacterium tumefaciens",
+      "family": "Rhizobiaceae",
+      "whereFound": "Plant tissues",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Bordetella pertussis",
+      "family": "Alcaligenaceae",
+      "whereFound": "Respiratory tract",
+      "harmful": true,
+      "associatedConditions": [
+        "Whooping cough",
+        "Pertussis",
+        "Severe coughing spells"
+      ]
+    },
+    {
+      "name": "Coxiella burnetii",
+      "family": "Coxiellaceae",
+      "whereFound": "Infected animals",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Dermatophilus congolensis",
+      "family": "Dermatophilaceae",
+      "whereFound": "Animal skin",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ehrlichia chaffeensis",
+      "family": "Anaplasmataceae",
+      "whereFound": "White-tailed deer",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Francisella tularensis",
+      "family": "Francisellaceae",
+      "whereFound": "Infected animals, water",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Gardnerella vaginalis",
+      "family": "Bifidobacteriaceae",
+      "whereFound": "Genitourinary tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Haemophilus ducreyi",
+      "family": "Pasteurellaceae",
+      "whereFound": "Human skin",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ignatzschineria indica",
+      "family": "Ignatzschineriaceae",
+      "whereFound": "Infected wounds",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Janthinobacterium lividum",
+      "family": "Oxalobacteraceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Klebsiella oxytoca",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Legionella longbeachae",
+      "family": "Legionellaceae",
+      "whereFound": "Soil",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Moraxella catarrhalis",
+      "family": "Moraxellaceae",
+      "whereFound": "Respiratory tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Neisseria meningitidis",
+      "family": "Neisseriaceae",
+      "whereFound": "Respiratory tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ochrobactrum anthropi",
+      "family": "Brucellaceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Pasteurella multocida",
+      "family": "Pasteurellaceae",
+      "whereFound": "Animal respiratory tracts",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Q fever agent (Coxiella burnetii)",
+      "family": "Coxiellaceae",
+      "whereFound": "Infected animals",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Rickettsia prowazekii",
+      "family": "Rickettsiaceae",
+      "whereFound": "Body lice",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Serratia liquefaciens",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Thermus aquaticus",
+      "family": "Deinococcaceae",
+      "whereFound": "Hot springs",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ureaplasma urealyticum",
+      "family": "Mycoplasmataceae",
+      "whereFound": "Human urogenital tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Variovorax paradoxus",
+      "family": "Comamonadaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Wolbachia sp.",
+      "family": "Rickettsiaceae",
+      "whereFound": "Arthropods",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Xanthomonas campestris",
+      "family": "Xanthomonadaceae",
+      "whereFound": "Plants",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Yersinia enterocolitica",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Zymomonas mobilis",
+      "family": "Sphingomonadaceae",
+      "whereFound": "Sugary environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Aeromonas hydrophila",
+      "family": "Aeromonadaceae",
+      "whereFound": "Freshwater",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Bifidobacterium longum",
+      "family": "Bifidobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Citrobacter freundii",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Desulfovibrio vulgaris",
+      "family": "Desulfovibrionaceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Enterobacter aerogenes",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tract",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Flavobacterium columnare",
+      "family": "Flavobacteriaceae",
+      "whereFound": "Freshwater",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Geobacter sulfurreducens",
+      "family": "Geobacteraceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Halomonas elongata",
+      "family": "Halomonadaceae",
+      "whereFound": "Salty environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Idiomarina loihiensis",
+      "family": "Idiomarinaceae",
+      "whereFound": "Deep-sea environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Jannaschia sp.",
+      "family": "Rhodobacteraceae",
+      "whereFound": "Marine environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Kocuria rhizophila",
+      "family": "Micrococcaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Lysinibacillus sphaericus",
+      "family": "Bacillaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Micrococcus luteus",
+      "family": "Micrococcaceae",
+      "whereFound": "Skin, environment",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Nocardia asteroides",
+      "family": "Nocardiaceae",
+      "whereFound": "Soil",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Oceanospirillum linum",
+      "family": "Oceanospirillaceae",
+      "whereFound": "Marine environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Pantoea agglomerans",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Plants, soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Acidithiobacillus ferrooxidans",
+      "family": "Acidithiobacillaceae",
+      "whereFound": "Acidic, sulfidic environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Alcaligenes faecalis",
+      "family": "Alcaligenaceae",
+      "whereFound": "Soil, water, human feces",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Bdellovibrio bacteriovorus",
+      "family": "Bdellovibrionaceae",
+      "whereFound": "Predatory on other bacteria",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Burkholderia cepacia",
+      "family": "Burkholderiaceae",
+      "whereFound": "Soil, water, rhizosphere",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Caldicellulosiruptor bescii",
+      "family": "Clostridiaceae",
+      "whereFound": "Hot springs",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Deinococcus radiodurans",
+      "family": "Deinococcaceae",
+      "whereFound": "Radioactive environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Enterococcus durans",
+      "family": "Enterococcaceae",
+      "whereFound": "Human and animal intestines",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Flavobacterium psychrophilum",
+      "family": "Flavobacteriaceae",
+      "whereFound": "Freshwater, cold environments",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Gluconobacter oxydans",
+      "family": "Acetobacteraceae",
+      "whereFound": "Fruits, flowers",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Halobacterium salinarum",
+      "family": "Halobacteriaceae",
+      "whereFound": "Salt lakes",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Isoptericola variabilis",
+      "family": "Promicromonosporaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Janibacter hoylei",
+      "family": "Intrasporangiaceae",
+      "whereFound": "High-altitude air",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Kytococcus sedentarius",
+      "family": "Micrococcaceae",
+      "whereFound": "Human skin",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Leuconostoc mesenteroides",
+      "family": "Leuconostocaceae",
+      "whereFound": "Plants, fermented foods",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Methanobrevibacter smithii",
+      "family": "Methanobacteriaceae",
+      "whereFound": "Human and animal guts",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Nitrobacter winogradskyi",
+      "family": "Nitrobacteraceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Oenococcus oeni",
+      "family": "Leuconostocaceae",
+      "whereFound": "Wine, fermented beverages",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Prevotella intermedia",
+      "family": "Prevotellaceae",
+      "whereFound": "Human oral cavity",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Quinella ovalis",
+      "family": "Lachnospiraceae",
+      "whereFound": "Ruminant gut",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Rhodococcus fascians",
+      "family": "Nocardiaceae",
+      "whereFound": "Plants",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Sphingomonas wittichii",
+      "family": "Sphingomonadaceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Thioalkalivibrio sulfidiphilus",
+      "family": "Ectothiorhodospiraceae",
+      "whereFound": "Alkaline, sulfidic environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ureibacillus thermosphaericus",
+      "family": "Bacillaceae",
+      "whereFound": "Hot compost",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Veillonella parvula",
+      "family": "Veillonellaceae",
+      "whereFound": "Human and animal mouths",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Xenorhabdus nematophila",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Symbiotic with nematodes",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Yokenella regensburgei",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Environment, occasionally human samples",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Zooglea ramigera",
+      "family": "Zoogloeaceae",
+      "whereFound": "Wastewater treatment systems",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Aeromonas salmonicida",
+      "family": "Aeromonadaceae",
+      "whereFound": "Fish",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Brevundimonas diminuta",
+      "family": "Caulobacteraceae",
+      "whereFound": "Water, environment",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Chryseobacterium indologenes",
+      "family": "Flavobacteriaceae",
+      "whereFound": "Water, soil",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Dyadobacter fermentans",
+      "family": "Cytophagaceae",
+      "whereFound": "Soil, plant roots",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Exiguobacterium sibiricum",
+      "family": "Bacillaceae",
+      "whereFound": "Cold environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Frankia alni",
+      "family": "Frankiaceae",
+      "whereFound": "Root nodules of alder trees",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Gordonia bronchialis",
+      "family": "Tsukamurellaceae",
+      "whereFound": "Soil, human respiratory tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Hydrogenophaga pseudoflava",
+      "family": "Comamonadaceae",
+      "whereFound": "Water, soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Inquilinus limosus",
+      "family": "Burkholderiaceae",
+      "whereFound": "Human respiratory tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Jonesia denitrificans",
+      "family": "Actinomycetaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Klebsiella variicola",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Plant surfaces, human gut",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Lelliottia amnigena",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Water, soil, human gut",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Methylobacterium extorquens",
+      "family": "Methylobacteriaceae",
+      "whereFound": "Soil, plants",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Nocardiopsis dassonvillei",
+      "family": "Nocardiopsaceae",
+      "whereFound": "Soil",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Opitutus terrae",
+      "family": "Opitutaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Pseudonocardia dioxanivorans",
+      "family": "Pseudonocardiaceae",
+      "whereFound": "Soil",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Roseomonas gilardii",
+      "family": "Rhodospirillaceae",
+      "whereFound": "Water, human clinical samples",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Stenotrophomonas maltophilia",
+      "family": "Xanthomonadaceae",
+      "whereFound": "Soil, water, human clinical samples",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Tropheryma whipplei",
+      "family": "Tropherymataceae",
+      "whereFound": "Human intestine",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ureaplasma urealyticum",
+      "family": "Mycoplasmataceae",
+      "whereFound": "Human urogenital tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Achromobacter xylosoxidans",
+      "family": "Alcaligenaceae",
+      "whereFound": "Water, soil",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Alloiococcus otitidis",
+      "family": "Staphylococcaceae",
+      "whereFound": "Human ear",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Azospirillum brasilense",
+      "family": "Rhodospirillaceae",
+      "whereFound": "Soil, roots of plants",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Bartonella henselae",
+      "family": "Bartonellaceae",
+      "whereFound": "Infected cats, cat fleas",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Bifidobacterium adolescentis",
+      "family": "Bifidobacteriaceae",
+      "whereFound": "Human intestine",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Campylobacter lari",
+      "family": "Campylobacteraceae",
+      "whereFound": "Wild birds, domestic animals",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Capnocytophaga canimorsus",
+      "family": "Flavobacteriaceae",
+      "whereFound": "Dog and cat saliva",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Carnobacterium maltaromaticum",
+      "family": "Carnobacteriaceae",
+      "whereFound": "Food products",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Chromobacterium violaceum",
+      "family": "Chromobacteriaceae",
+      "whereFound": "Soil, water",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Clavibacter michiganensis",
+      "family": "Corynebacteriaceae",
+      "whereFound": "Plants",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Corynebacterium striatum",
+      "family": "Corynebacteriaceae",
+      "whereFound": "Human skin",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Desulfitobacterium hafniense",
+      "family": "Peptococcaceae",
+      "whereFound": "Soil, sediment",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Eikenella corrodens",
+      "family": "Neisseriaceae",
+      "whereFound": "Human mouth, upper respiratory tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Facklamia hominis",
+      "family": "Carnobacteriaceae",
+      "whereFound": "Human urogenital and respiratory tracts",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Gallionella ferruginea",
+      "family": "Gallionellaceae",
+      "whereFound": "Freshwater, iron-rich environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Hafnia alvei",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Intestinal tracts of humans and animals",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Iodobacter fluviatile",
+      "family": "Comamonadaceae",
+      "whereFound": "Freshwater",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Kingella kingae",
+      "family": "Neisseriaceae",
+      "whereFound": "Human oropharynx",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Lachnoclostridium phytofermentans",
+      "family": "Lachnospiraceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Leclercia adecarboxylata",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Soil, water, human clinical samples",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Mannheimia haemolytica",
+      "family": "Pasteurellaceae",
+      "whereFound": "Respiratory tract of cattle",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Nocardia brasiliensis",
+      "family": "Nocardiaceae",
+      "whereFound": "Soil",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Oligella urethralis",
+      "family": "Alcaligenaceae",
+      "whereFound": "Human urogenital tract",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Paenibacillus polymyxa",
+      "family": "Paenibacillaceae",
+      "whereFound": "Soil, root nodules",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Paracoccus denitrificans",
+      "family": "Rhodobacteraceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ralstonia solanacearum",
+      "family": "Ralstoniaceae",
+      "whereFound": "Soil, plants",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Sanguibacter keddieii",
+      "family": "Propionibacteriaceae",
+      "whereFound": "Dairy products",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Tannerella forsythia",
+      "family": "Bacteroidaceae",
+      "whereFound": "Human oral cavity",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Unidentified Bacillus sp.",
+      "family": "Bacillaceae",
+      "whereFound": "Various environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Vagococcus fluvialis",
+      "family": "Enterococcaceae",
+      "whereFound": "Water, fish",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Weissella confusa",
+      "family": "Leuconostocaceae",
+      "whereFound": "Fermented foods, human clinical samples",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Xylella fastidiosa",
+      "family": "Xanthomonadaceae",
+      "whereFound": "Plants",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Yersinia ruckeri",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Fish",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Zoogloea ramigera",
+      "family": "Zoogloeaceae",
+      "whereFound": "Wastewater treatment systems",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Acetobacter pasteurianus",
+      "family": "Acetobacteraceae",
+      "whereFound": "Fermented beverages",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Brevibacillus brevis",
+      "family": "Bacillaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Curtobacterium flaccumfaciens",
+      "family": "Corynebacteriaceae",
+      "whereFound": "Plants",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Dysgonomonas gadei",
+      "family": "Bacteroidaceae",
+      "whereFound": "Human gut",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Empedobacter brevis",
+      "family": "Flavobacteriaceae",
+      "whereFound": "Water, soil, human clinical samples",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Fusobacterium nucleatum",
+      "family": "Fusobacteriaceae",
+      "whereFound": "Human oral cavity",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Gemella haemolysans",
+      "family": "Gemellaceae",
+      "whereFound": "Human mucous membranes",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Helcococcus kunzii",
+      "family": "Aerococcaceae",
+      "whereFound": "Human skin, wounds",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ignavigranum ruoffiae",
+      "family": "Planococcaceae",
+      "whereFound": "Marine environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Jonesia quinghaiensis",
+      "family": "Listeriaceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Kluyvera ascorbata",
+      "family": "Enterobacteriaceae",
+      "whereFound": "Environment, human gut",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Lysobacter enzymogenes",
+      "family": "Xanthomonadaceae",
+      "whereFound": "Soil",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Megasphaera elsdenii",
+      "family": "Veillonellaceae",
+      "whereFound": "Animal intestines",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Neorickettsia sennetsu",
+      "family": "Anaplasmataceae",
+      "whereFound": "Infected fish",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Novosphingobium aromaticivorans",
+      "family": "Sphingomonadaceae",
+      "whereFound": "Soil, water",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ornithinibacillus scapharcae",
+      "family": "Bacillaceae",
+      "whereFound": "Marine environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Pirellula staleyi",
+      "family": "Planctomycetaceae",
+      "whereFound": "Freshwater environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Quatrococcus ludwigii",
+      "family": "Micrococcaceae",
+      "whereFound": "Human skin",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Rathayibacter toxicus",
+      "family": "Microbacteriaceae",
+      "whereFound": "Infected grasses",
+      "harmful": true,
+      "associatedConditions": []
+    },
+    {
+      "name": "Simonsiella muelleri",
+      "family": "Simonsiellaceae",
+      "whereFound": "Animal mucous membranes",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Tepidimonas arfidensis",
+      "family": "Comamonadaceae",
+      "whereFound": "Thermal springs",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Ulvibacter litoralis",
+      "family": "Flavobacteriaceae",
+      "whereFound": "Marine environments",
+      "harmful": false,
+      "associatedConditions": []
+    },
+    {
+      "name": "Vibrio vulnificus",
+      "family": "Vibrionaceae",
+      "whereFound": "Marine environments",
+      "harmful": true,
+      "associatedConditions": []
+    }
+  ],
+  "diabetesIndicators": {
+    "highBpPrevalenceInDiabeticsPercent": 75.3,
+    "highCholPrevalenceInDiabeticsPercent": 67.0,
+    "meanBmiInDiabetics": 31.9,
+    "keyRiskFactors": [
+      "High Blood Pressure (75.3% in diabetics)",
+      "High Cholesterol (67.0%)",
+      "BMI >= 30 (Obesity, mean 31.9)",
+      "Physical Inactivity",
+      "Smoking",
+      "Age >= 45"
+    ],
+    "symptoms": [
+      "Excessive thirst (polydipsia)",
+      "Frequent urination (polyuria)",
+      "Extreme hunger",
+      "Unexplained weight loss",
+      "Fatigue",
+      "Blurry vision",
+      "Slow-healing sores"
+    ],
+    "recommendations": [
+      "Undergo Fasting Plasma Glucose or HbA1c screening",
+      "Adopt a low-glycemic, balanced diet with high dietary fiber",
+      "Engage in 150+ minutes of moderate physical activity weekly",
+      "Monitor blood pressure and cholesterol levels regularly",
+      "Consult an endocrinologist or general physician for comprehensive metabolic evaluation"
+    ]
+  },
+  "cardiovascularStats": {
+    "avgMortalitySharePercent": 37.5,
+    "urgency": "high",
+    "redFlagSymptoms": [
+      "Chest pain or pressure",
+      "Shortness of breath",
+      "Pain radiating to left arm, shoulder, jaw, or back",
+      "Cold sweat",
+      "Lightheadedness or sudden dizziness"
+    ],
+    "differentialDiagnosis": [
+      {
+        "name": "Acute Coronary Syndrome / Angina",
+        "probability": "45%",
+        "description": "Potential ischemic heart disease (source: WHO CVD Dataset, 37.5% global cause share)"
+      },
+      {
+        "name": "Musculoskeletal Chest Wall Pain",
+        "probability": "30%",
+        "description": "Benign chest muscle strain or costochondritis"
+      },
+      {
+        "name": "Gastroesophageal Reflux (GERD)",
+        "probability": "25%",
+        "description": "Acid reflux causing non-cardiac retrosternal burning"
+      }
+    ],
+    "recommendations": [
+      "Immediate emergency medical attention if chest pain persists or radiates",
+      "Do not drive yourself to the ER; call emergency ambulance services (108/112/911)",
+      "Chew non-enteric coated aspirin 300mg if advised by emergency dispatcher and no allergy",
+      "Rest in a comfortable, seated position while awaiting medical help"
+    ]
+  },
+  "respiratoryStats": {
+    "avgMortalitySharePercent": 4.85,
+    "urgency": "moderate",
+    "symptoms": [
+      "Cough",
+      "Fever",
+      "Sputum production",
+      "Wheezing",
+      "Shortness of breath"
+    ],
+    "commonPathogens": [
+      "Streptococcus pneumoniae",
+      "Haemophilus influenzae",
+      "Mycoplasma pneumoniae",
+      "Respiratory viruses"
+    ],
+    "recommendations": [
+      "Stay well-hydrated with warm fluids",
+      "Monitor body temperature and oxygen saturation (SpO2)",
+      "Use steam inhalation or saline nasal rinses",
+      "Consult a doctor if fever lasts >3 days or breathing difficulty develops"
+    ]
+  }
+}

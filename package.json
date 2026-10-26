@@ -1,0 +1,19 @@
+{
+  "name": "doc-in-the-box-healthcare",
+  "version": "1.0.0",
+  "description": "Doc-In-The-Box - AI Healthcare Platform with Mistral AI and Dataset-Driven Rule-Based Fallback",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/unit_tests.test.js test/server.test.js"
+  },
+  "keywords": [
+    "healthcare",
+    "triage",
+    "mistral-ai",
+    "rule-based",
+    "medical-datasets"
+  ],
+  "author": "Doc-In-The-Box Team",
+  "license": "ISC"
+}

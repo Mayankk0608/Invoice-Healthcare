@@ -82,15 +82,17 @@ class PatientManager {
             });
     }
     
-    performAIAnalysis(symptoms) {
-        return new Promise((resolve) => {
-            // Simulate API call delay
-            setTimeout(() => {
-                // Mock AI analysis results
-                const mockResults = this.generateMockAnalysis(symptoms);
-                resolve(mockResults);
-            }, 3000);
-        });
+    async performAIAnalysis(symptoms) {
+        try {
+            if (window.MistralService) {
+                return await window.MistralService.analyzeSymptoms(symptoms);
+            } else if (window.RuleBasedEngine) {
+                return window.RuleBasedEngine.analyzeSymptoms(symptoms);
+            }
+        } catch (err) {
+            console.warn('AI analysis error, falling back to local dataset mock:', err);
+        }
+        return this.generateMockAnalysis(symptoms);
     }
     
     generateMockAnalysis(symptoms) {
@@ -196,7 +198,10 @@ class PatientManager {
         // Build the complete results HTML
         const resultsHTML = `
             <div class="results-header">
-                <h3>AI Analysis Results</h3>
+                <div>
+                    <h3>AI Analysis Results</h3>
+                    ${results.source ? `<div class="analysis-engine-tag" style="margin-top: 4px; font-size: 0.82rem; color: #3b82f6; background: rgba(59, 130, 246, 0.1); padding: 3px 8px; border-radius: 6px; display: inline-block;">🤖 <strong>Source:</strong> ${results.source}</div>` : ''}
+                </div>
                 <div class="urgency-indicator">
                     <span class="urgency-label">Urgency Level:</span>
                     <span class="urgency-badge ${results.urgency}">${results.urgency.charAt(0).toUpperCase() + results.urgency.slice(1)}</span>
@@ -227,6 +232,7 @@ class PatientManager {
                     `).join('')}
                 </div>
             </div>
+            ${results.disclaimer ? `<div class="analysis-disclaimer" style="margin: 12px 0 16px; font-size: 0.8rem; color: #64748b; font-style: italic; background: #f8fafc; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #cbd5e1;">⚠️ ${results.disclaimer}</div>` : ''}
             <div class="action-buttons">
                 <button class="btn btn-primary" onclick="bookAppointment()">Book Doctor Appointment</button>
                 <button class="btn btn-secondary" onclick="saveToHealthWallet()">Save to Health Wallet</button>

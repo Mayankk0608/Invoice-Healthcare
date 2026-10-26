@@ -1,29 +1,16 @@
+// sw.js - Service Worker with cache busting
 self.addEventListener('install', event => {
-  console.log('Service Worker installing...');
-  // You can pre-cache files here if needed
-  event.waitUntil(
-    caches.open('v1').then(cache => {
-      return cache.addAll([
-        '/',              // root
-        'Index.html',
-        'main.js',
-        'styles.css'
-      ]);
-    })
-  );
+  self.skipWaiting();
 });
 
-// Activate event – runs after install
 self.addEventListener('activate', event => {
-  console.log('Service Worker activated');
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
 });
 
-// Fetch event – intercepts network requests
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      // Serve cached file if available, otherwise fetch from network
-      return response || fetch(event.request);
-    })
-  );
+  // Always fetch fresh from network to prevent serving stale cached HTML
+  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
 });

@@ -966,13 +966,16 @@ class DocInTheBoxApp {
     
     setupServiceWorker() {
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('Service Worker registered:', registration.scope);
-                })
-                .catch(error => {
-                    console.error('Service Worker registration failed:', error);
+            if (window.caches) {
+                caches.keys().then(names => {
+                    names.forEach(name => caches.delete(name));
                 });
+            }
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (const registration of registrations) {
+                    registration.unregister();
+                }
+            });
         }
     }
     
@@ -1306,22 +1309,27 @@ class DocInTheBoxApp {
         const content = `
             <div class="support-chat">
                 <div class="chat-header">
-                    <h3>💬 Live Support Chat</h3>
-                    <p>Chat with our support team</p>
+                    <div>
+                        <h3>💬 Live Medical & Support Chat</h3>
+                        <p>Ask medical questions, disease queries, or platform help</p>
+                    </div>
+                    <div style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 4px; display: inline-block;">
+                        🤖 AI Medical Assistant Active
+                    </div>
                 </div>
                 
                 <div class="chat-messages">
                     <div class="chat-message bot-message">
                         <div class="message-avatar">🤖</div>
                         <div class="message-content">
-                            <p>Hello! I'm here to help you with Doc-In-The-Box. What can I assist you with today?</p>
+                            <p>Hello! I'm your Doc-In-The-Box AI Assistant. Ask me about your health queries, common bacteria, diabetes indicators, heart attack symptoms, or platform features!</p>
                             <span class="message-time">Just now</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="chat-input-container">
-                    <input type="text" class="form-input" placeholder="Type your message..." 
+                    <input type="text" class="form-input" placeholder="Type your query (e.g., 'What is E. coli?', 'Diabetes risk factors')..."
                            onkeypress="if(event.key==='Enter') app.sendChatMessage(this.value, this)">
                     <button class="btn btn-primary btn-small" onclick="app.sendChatMessage(this.previousElementSibling.value, this.previousElementSibling)">
                         Send
@@ -1329,9 +1337,10 @@ class DocInTheBoxApp {
                 </div>
                 
                 <div class="quick-actions">
-                    <button class="quick-action-btn" onclick="app.sendQuickMessage('How do I use the symptom checker?')">❓ Symptom Checker Help</button>
-                    <button class="quick-action-btn" onclick="app.sendQuickMessage('I need help booking an appointment')">📅 Appointment Help</button>
-                    <button class="quick-action-btn" onclick="app.sendQuickMessage('Voice features not working')">🎤 Voice Issues</button>
+                    <button class="quick-action-btn" onclick="app.sendQuickMessage('What are the symptoms of a heart attack?')">❤️ Heart Attack Signs</button>
+                    <button class="quick-action-btn" onclick="app.sendQuickMessage('What is Salmonella enterica?')">🔬 Salmonella Info</button>
+                    <button class="quick-action-btn" onclick="app.sendQuickMessage('What are diabetes risk factors?')">🩸 Diabetes Risks</button>
+                    <button class="quick-action-btn" onclick="app.sendQuickMessage('How do I use the symptom checker?')">❓ Symptom Help</button>
                 </div>
             </div>
         `;
@@ -1339,8 +1348,9 @@ class DocInTheBoxApp {
         showModal('Support Chat', content);
     }
     
-    sendChatMessage(message, inputElement) {
-        if (!message.trim()) return;
+    async sendChatMessage(message, inputElement) {
+        if (!message || !message.trim()) return;
+        const queryText = message.trim();
         
         const messagesContainer = document.querySelector('.chat-messages');
         if (!messagesContainer) return;
@@ -1350,7 +1360,7 @@ class DocInTheBoxApp {
         userMessage.className = 'chat-message user-message';
         userMessage.innerHTML = `
             <div class="message-content">
-                <p>${message}</p>
+                <p>${queryText.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
                 <span class="message-time">Just now</span>
             </div>
             <div class="message-avatar">👤</div>
@@ -1358,23 +1368,55 @@ class DocInTheBoxApp {
         messagesContainer.appendChild(userMessage);
         
         // Clear input
-        inputElement.value = '';
+        if (inputElement) inputElement.value = '';
+
+        // Add loading bot message
+        const typingId = 'typing_' + Date.now();
+        const typingMessage = document.createElement('div');
+        typingMessage.id = typingId;
+        typingMessage.className = 'chat-message bot-message';
+        typingMessage.innerHTML = `
+            <div class="message-avatar">🤖</div>
+            <div class="message-content">
+                <p><em>Thinking...</em></p>
+            </div>
+        `;
+        messagesContainer.appendChild(typingMessage);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
         
-        // Simulate bot response
-        setTimeout(() => {
-            const botResponse = this.generateBotResponse(message);
-            const botMessage = document.createElement('div');
-            botMessage.className = 'chat-message bot-message';
-            botMessage.innerHTML = `
-                <div class="message-avatar">🤖</div>
-                <div class="message-content">
-                    <p>${botResponse}</p>
-                    <span class="message-time">Just now</span>
-                </div>
-            `;
-            messagesContainer.appendChild(botMessage);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }, 1000);
+        try {
+            const botResponse = await this.generateBotResponse(queryText);
+
+            // Format markdown-like text to simple HTML
+            const formatted = botResponse
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n/g, '<br>');
+
+            const botElement = document.getElementById(typingId);
+            if (botElement) {
+                botElement.innerHTML = `
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div>${formatted}</div>
+                        <span class="message-time">Just now</span>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Chat response error:', error);
+            const botElement = document.getElementById(typingId);
+            if (botElement) {
+                botElement.innerHTML = `
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>I apologize, but I encountered an error processing your query. Please try again.</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                `;
+            }
+        }
         
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
@@ -1387,26 +1429,18 @@ class DocInTheBoxApp {
         }
     }
     
-    generateBotResponse(userMessage) {
+    async generateBotResponse(userMessage) {
+        if (window.MistralService) {
+            return await window.MistralService.answerQuery(userMessage);
+        } else if (window.RuleBasedEngine) {
+            return window.RuleBasedEngine.answerQuery(userMessage);
+        }
+
         const lowerMessage = userMessage.toLowerCase();
-        
         if (lowerMessage.includes('symptom') || lowerMessage.includes('checker')) {
-            return 'To use the symptom checker: 1) Go to Patient Dashboard, 2) Click the microphone or type your symptoms, 3) Our AI will analyze and provide recommendations. You can use voice input in multiple languages!';
+            return 'To use the symptom checker: 1) Go to Patient Dashboard, 2) Click the microphone or type your symptoms, 3) Our AI will analyze and provide recommendations.';
         }
-        
-        if (lowerMessage.includes('appointment') || lowerMessage.includes('book')) {
-            return 'To book an appointment: 1) Click "Book Appointment" from any dashboard, 2) Search and select a doctor, 3) Choose your preferred date and time, 4) Confirm your booking. You\'ll receive confirmation details in your Health Wallet.';
-        }
-        
-        if (lowerMessage.includes('voice') || lowerMessage.includes('microphone')) {
-            return 'Voice features require microphone permission. Make sure: 1) Your browser allows microphone access, 2) You have a working microphone, 3) Try refreshing the page. You can also use Ctrl+Shift+V to toggle voice assistant.';
-        }
-        
-        if (lowerMessage.includes('login') || lowerMessage.includes('account')) {
-            return 'Having trouble with your account? You can: 1) Reset password using "Forgot Password" link, 2) Contact support if you can\'t access your email, 3) Create a new account if needed. We support Patient, Doctor, and Admin account types.';
-        }
-        
-        return 'Thank you for your message! Our support team will help resolve your issue. For immediate assistance, you can also call us at +91-123-456-7890 or email support@docinthebox.com.';
+        return 'Thank you for your message! Our support team is here to help.';
     }
     
     pauseNonCriticalOperations() {
